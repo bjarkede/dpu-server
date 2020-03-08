@@ -9,6 +9,8 @@ namespace dpu_server
         double x, y, distance;
         int classification;
 
+        Point2D(double x_, double _y) { x = x_; y = _y; }
+
         double norm2() { return (x * x) + (y * y); }
         double norm() { return Math.Sqrt(norm2()); }
 
@@ -22,34 +24,22 @@ namespace dpu_server
         }
         public static Point2D operator +(Point2D p1, Point2D p2)
         {
-            Point2D temp = new Point2D();
-            temp.x = p1.x + p2.x;
-            temp.y = p1.y + p2.y;
-            return temp;
+            return new Point2D(p1.x + p2.x, p1.y + p2.y);
         }
 
         public static Point2D operator -(Point2D p1, Point2D p2)
         {
-            Point2D temp = new Point2D();
-            temp.x = p1.x - p2.x;
-            temp.y = p1.y - p2.y;
-            return temp;
+            return new Point2D(p1.x - p2.x, p1.y - p2.y);
         }
 
         public static Point2D operator /(Point2D p, double num)
         {
-            Point2D temp = new Point2D();
-            temp.x = p.x/num;
-            temp.y = p.y/num;
-            return temp;
+            return new Point2D(p.x/num, p.y/num);
         }
 
         public static Point2D operator *(Point2D p, double num)
         {
-            Point2D temp = new Point2D();
-            temp.x = p.x * num;
-            temp.y = p.y * num;
-            return temp;
+            return new Point2D(p.x * num, p.y * num);
         }
     }
 
