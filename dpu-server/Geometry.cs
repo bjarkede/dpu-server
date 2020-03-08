@@ -9,7 +9,7 @@ namespace dpu_server
         double x, y, distance;
         int classification;
 
-        Point2D(double x_, double _y) { x = x_; y = _y; }
+        public Point2D(double x_, double _y) { x = x_; y = _y; }
 
         double norm2() { return (x * x) + (y * y); }
         double norm() { return Math.Sqrt(norm2()); }
