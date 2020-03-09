@@ -33,6 +33,7 @@ namespace dpu_server
         public ManualResetEvent connectDone = new ManualResetEvent(false);
         public ManualResetEvent sendDone = new ManualResetEvent(false);
         public ManualResetEvent receiveDone = new ManualResetEvent(false);
+        public ManualResetEvent allDone = new ManualResetEvent(false);
 
         public String response = String.Empty; // Server response
 
@@ -76,6 +77,7 @@ namespace dpu_server
 
                 // Begin receiving the data from the remote device.  
                 client.BeginReceive(state.recBuffer, 0, ConnState.recBufferSize, 0, new AsyncCallback(ReceiveCallback), state);
+                receiveDone.WaitOne();
             }
             catch (Exception e)
             {
@@ -125,6 +127,7 @@ namespace dpu_server
 
             // Begin sending the data to the remote device.  
             client.BeginSend(byteData, 0, byteData.Length, 0, new AsyncCallback(SendCallback), client);
+            sendDone.WaitOne();
         }
 
         private void SendCallback(IAsyncResult ar)
