@@ -14,7 +14,7 @@ namespace dpu_server
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=LAPTOP-5VIV2QMO\FRUITFLY;Initial Catalog=FruitFly;Integrated Security=True");
+            optionsBuilder.UseSqlServer("Data Source=LAPTOP-5VIV2QMO\\FRUITFLY;Initial Catalog=FruitFly;Integrated Security=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
