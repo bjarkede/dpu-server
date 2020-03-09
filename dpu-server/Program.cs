@@ -73,7 +73,7 @@ namespace dpu_server
 
         public static int Main(String[] args)
         {
-            StartClient();
+            //StartClient();
             return 0;
         }
     }

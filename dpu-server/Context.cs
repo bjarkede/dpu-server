@@ -14,7 +14,7 @@ namespace dpu_server
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=172.25.129.88;Initial Catalog=Reference;Persist Security Info=True;User ID=sa;Password='F?G2Qt8E.;<4vzuV';");
+            optionsBuilder.UseSqlServer("Data Source=LAPTOP-5VIV2QMO\FRUITFLY;Initial Catalog=FruitFly;Integrated Security=True");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -23,6 +23,19 @@ namespace dpu_server
 
             modelBuilder.Entity<Reference>().HasKey(r => r.ReferenceID);
 
+            // Heatmap has referencepoints X and Y.
+
+            modelBuilder.Entity<Heatmap>().HasKey(h => h.HeatmapID);
+
+            modelBuilder.Entity<Heatmap>()
+                .HasOne<Reference>(h => h.X)
+                .WithOne(r => r.Heatmap)
+                .HasForeignKey(r => r.ReferenceX);
+
+            modelBuilder.Entity<Heatmap>()
+                .HasOne<Reference>(h => h.Y)
+                .WithOne(r => r.Heatmap)
+                .HasForeignKey(r => r.ReferenceY);
         }
 
     }
