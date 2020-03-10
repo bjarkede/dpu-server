@@ -4,45 +4,43 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Text;
 using System.Collections.Generic;
-
-
+using System.Globalization;
 
 
 namespace dpu_server
 {
     class Program
     {
+        private static int NUM_SOURCES = 3;
+
         // Declare all sniffers in this array of structs
-        public static fileDownloadSource_t[] fileDLSources =
+        private static fileDownloadSource_t[] fileDLSources =
         {
-            new fileDownloadSource_t {name = "SNF1", hostname = "", numericHostName = "192.168.86.157", port = 27015}
+            new fileDownloadSource_t {name = "SNF1", hostname = "", numericHostName = "192.168.86.158", port = 27015},
         };
-
-        public static void ClientThread()
-        {
-            ASyncSocket Socket = new ASyncSocket(fileDLSources[0].numericHostName, fileDLSources[0].port);
-            Socket.StartClient();
-
-            while (true)
-            {
-                Socket.Send("RETR test.txt"); // Insert destination to char-driver
-                Socket.Receive();
-
-                Thread.Sleep(1000);
-            }
-
-            Socket.Shutdown();
-        }
 
         public static int Main(String[] args)
         {
-            ThreadStart Socket = new ThreadStart(ClientThread);
-            Thread cliThread1 = new Thread(ClientThread);
-            cliThread1.Start();
+            ASyncSocket[] sockets = new ASyncSocket[NUM_SOURCES];
 
+            for (int i = 0; i < NUM_SOURCES; i++)
+            {
+                ASyncSocket s = new ASyncSocket(fileDLSources[0].numericHostName, fileDLSources[0].port);
+                sockets[i] = s;
+                s.StartClient();
+            }
+            
             while (true)
             {
+                for (int i = 0; i < NUM_SOURCES; i++)
+                {
+                    sockets[i].Send("RETR test.txt");
+                    sockets[i].Receive();
+                    System.Console.Write("{0}, ", sockets[i].RSS);
+                }
 
+                System.Console.WriteLine("");
+                Thread.Sleep(1000);
             }
 
             return 0;

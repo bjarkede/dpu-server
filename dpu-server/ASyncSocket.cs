@@ -45,6 +45,7 @@ namespace dpu_server
         public ManualResetEvent allDone = new ManualResetEvent(false);
 
         public String response = String.Empty; // Server response
+        public int RSS;
 
         public void StartClient()
         {
@@ -108,17 +109,17 @@ namespace dpu_server
 
                 if (bytesRead > 0)
                 {
-                    Console.WriteLine("Received : {0} bytes", bytesRead);
+                    //Console.WriteLine("Received : {0} bytes", bytesRead);
                     state.sb.Append(Encoding.ASCII.GetString(state.recBuffer, 0, bytesRead));
 
                     if (state.sb.Length > 1)
                     {
                         response = state.sb.ToString();
+                        Int32.TryParse(response, out RSS);
                     }
 
                     // Signal that all bytes have been received.  
                     receiveDone.Set();
-                    Console.WriteLine("Number received : {0}", Int32.Parse(response));
 
                     //client.BeginReceive(state.recBuffer, 0, ConnState.recBufferSize, 0, new AsyncCallback(ReceiveCallback), state);
                 }
@@ -131,7 +132,6 @@ namespace dpu_server
 
                     // Signal that all bytes have been received.  
                     receiveDone.Set();
-                    Console.WriteLine("Response received : {0}", response);
                 }
             }
             catch (Exception e)
@@ -159,7 +159,7 @@ namespace dpu_server
 
                 // Complete sending the data to the remote device.  
                 int bytesSent = client.EndSend(ar);
-                Console.WriteLine("Sent {0} bytes to server.", bytesSent);
+                //Console.WriteLine("Sent {0} bytes to server.", bytesSent);
 
                 // Signal that all bytes have been sent.  
                 sendDone.Set();
