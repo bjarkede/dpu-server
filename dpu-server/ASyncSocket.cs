@@ -4,9 +4,18 @@ using System.Net.Sockets;
 using System.Threading;
 using System.Text;
 using System.IO;
+using System.Resources;
 
 namespace dpu_server
 {
+    public struct fileDownloadSource_t
+    {
+        public string name;
+        public string hostname;
+        public string numericHostName; // Fallback
+        public int port;
+    }
+
     public class ConnState
     {
         public Socket workSocket = null;
@@ -99,9 +108,19 @@ namespace dpu_server
 
                 if (bytesRead > 0)
                 {
+                    Console.WriteLine("Received : {0} bytes", bytesRead);
                     state.sb.Append(Encoding.ASCII.GetString(state.recBuffer, 0, bytesRead));
 
-                    client.BeginReceive(state.recBuffer, 0, ConnState.recBufferSize, 0, new AsyncCallback(ReceiveCallback), state);
+                    if (state.sb.Length > 1)
+                    {
+                        response = state.sb.ToString();
+                    }
+
+                    // Signal that all bytes have been received.  
+                    receiveDone.Set();
+                    Console.WriteLine("Number received : {0}", Int32.Parse(response));
+
+                    //client.BeginReceive(state.recBuffer, 0, ConnState.recBufferSize, 0, new AsyncCallback(ReceiveCallback), state);
                 }
                 else
                 {
@@ -112,6 +131,7 @@ namespace dpu_server
 
                     // Signal that all bytes have been received.  
                     receiveDone.Set();
+                    Console.WriteLine("Response received : {0}", response);
                 }
             }
             catch (Exception e)

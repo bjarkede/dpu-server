@@ -5,28 +5,45 @@ using System.Threading;
 using System.Text;
 using System.Collections.Generic;
 
+
+
+
 namespace dpu_server
 {
-
     class Program
     {
-        public static int Main(String[] args)
+        // Declare all sniffers in this array of structs
+        public static fileDownloadSource_t[] fileDLSources =
         {
-            ASyncSocket Socket = new ASyncSocket("192.168.88.130", 27015);
+            new fileDownloadSource_t {name = "SNF1", hostname = "", numericHostName = "192.168.86.157", port = 27015}
+        };
 
-            // Send a test
+        public static void ClientThread()
+        {
+            ASyncSocket Socket = new ASyncSocket(fileDLSources[0].numericHostName, fileDLSources[0].port);
+            Socket.StartClient();
+
             while (true)
             {
-                Socket.StartClient();
-                Socket.Send("RETR hello2.txt");
+                Socket.Send("RETR test.txt"); // Insert destination to char-driver
                 Socket.Receive();
 
-                Console.WriteLine("Response received : {0}", Socket.response);
-
-                Socket.Shutdown();
+                Thread.Sleep(1000);
             }
 
-            
+            Socket.Shutdown();
+        }
+
+        public static int Main(String[] args)
+        {
+            ThreadStart Socket = new ThreadStart(ClientThread);
+            Thread cliThread1 = new Thread(ClientThread);
+            cliThread1.Start();
+
+            while (true)
+            {
+
+            }
 
             return 0;
         }
