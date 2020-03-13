@@ -79,15 +79,20 @@ namespace dpu_server
         {
             //StartClient();
 
-            string filepath = @"C:\test.csv";
+            string filepath = @"C:\Users\mongl\data.txt";
 
             List<string> lines = File.ReadAllLines(filepath).ToList();
             var lineCount = File.ReadLines(filepath).Count();
 
+            foreach (var line in lines)
+            {
+                Console.WriteLine(line);
+            }
+
             using (var FFContext = new MyDbContext())
             {
 
-                Reference[] refencepoint = new Reference[lineCount];
+                //Reference[] refencepoint = new Reference[lineCount];
 
                 string[] entries = { "0" };
 
@@ -97,20 +102,38 @@ namespace dpu_server
                     entries = line.Split(',');
                 }
 
-                for (var i = 0; i < lineCount; i++)
+                //for (var i = 0; i < lineCount; i++)
+                //{
+                //    refencepoint[i] = new Reference
+                //    {
+                //        X = int.Parse(entries[0]),
+                //        Y = int.Parse(entries[1]),
+                //        RSSI1 = int.Parse(entries[2]),
+                //        RSSI2 = int.Parse(entries[3]),
+                //        RSSI3 = int.Parse(entries[4]),
+                //    };
+
+                //    FFContext.References.Add(refencepoint[i]);
+                //}
+
+                var referencepoint = new Referencepoint
                 {
-                    refencepoint[i] = new Reference
-                    {
-                        X = int.Parse(entries[0]),
-                        Y = int.Parse(entries[1]),
-                        RSSI1 = int.Parse(entries[2]),
-                        RSSI2 = int.Parse(entries[3]),
-                        RSSI3 = int.Parse(entries[4]),
-                    };
+                    X = int.Parse(entries[0]),
+                    Y = int.Parse(entries[1]),
+                    RSSI1 = int.Parse(entries[2]),
+                    RSSI2 = int.Parse(entries[3]),
+                    RSSI3 = int.Parse(entries[4]),
+                };
 
-                    FFContext.References.Add(refencepoint[i]);
-                }
+                var Heatmapinstance = new Heatmap
+                {
+                    Strength = 1,
+                    X = referencepoint.X,
+                    Y = referencepoint.Y,
+                };
 
+                FFContext.Heatmaps.Add(Heatmapinstance);
+                FFContext.Referencepoints.Add(referencepoint);
                 FFContext.SaveChanges();
             }
             return 0;
