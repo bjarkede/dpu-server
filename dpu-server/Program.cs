@@ -3,6 +3,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Text;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using dpu_server.Models;
 
 namespace dpu_server
 {
@@ -74,6 +78,41 @@ namespace dpu_server
         public static int Main(String[] args)
         {
             //StartClient();
+
+            string filepath = @"C:\test.csv";
+
+            List<string> lines = File.ReadAllLines(filepath).ToList();
+            var lineCount = File.ReadLines(filepath).Count();
+
+            using (var FFContext = new MyDbContext())
+            {
+
+                Reference[] refencepoint = new Reference[lineCount];
+
+                string[] entries = { "0" };
+
+                // Splitting the lines
+                foreach (var line in lines)
+                {
+                    entries = line.Split(',');
+                }
+
+                for (var i = 0; i < lineCount; i++)
+                {
+                    refencepoint[i] = new Reference
+                    {
+                        X = int.Parse(entries[0]),
+                        Y = int.Parse(entries[1]),
+                        RSSI1 = int.Parse(entries[2]),
+                        RSSI2 = int.Parse(entries[3]),
+                        RSSI3 = int.Parse(entries[4]),
+                    };
+
+                    FFContext.References.Add(refencepoint[i]);
+                }
+
+                FFContext.SaveChanges();
+            }
             return 0;
         }
     }

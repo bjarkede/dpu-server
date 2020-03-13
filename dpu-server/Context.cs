@@ -12,6 +12,10 @@ namespace dpu_server
     {
         //public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
 
+        public DbSet<Reference> References { get; set; }
+
+        public DbSet<Heatmap> Heatmaps { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=LAPTOP-5VIV2QMO\\FRUITFLY;Initial Catalog=FruitFly;Integrated Security=True");
@@ -23,20 +27,31 @@ namespace dpu_server
 
             modelBuilder.Entity<Reference>().HasKey(r => r.ReferenceID);
 
-            // Heatmap has referencepoints X and Y.
+            // Heatmap
 
             modelBuilder.Entity<Heatmap>().HasKey(h => h.HeatmapID);
 
-            modelBuilder.Entity<Heatmap>()
-                .HasOne<Reference>(h => h.X)
-                .WithOne(r => r.Heatmap)
-                .HasForeignKey(r => r.ReferenceX);
+            // Heatmap has X and Y points, which are the reference points found in the reference table
 
             modelBuilder.Entity<Heatmap>()
-                .HasOne<Reference>(h => h.Y)
-                .WithOne(r => r.Heatmap)
-                .HasForeignKey(r => r.ReferenceY);
+                .HasOne<Reference>(r => r.Reference)
+                .WithOne(h => h.Heatmap)
+                .HasForeignKey<Reference>(r => r.X);
+
+            modelBuilder.Entity<Heatmap>()
+                .HasOne<Reference>(r => r.Reference)
+                .WithOne(h => h.Heatmap)
+                .HasForeignKey<Reference>(r => r.Y);
+
         }
 
+        public IEnumerable<Heatmap> LoadEager()
+        {
+            var Heatmapdata = Heatmaps
+                .Include(h => h.Reference)
+                .ToList();
+
+            return Heatmapdata;
+        }
     }
 }

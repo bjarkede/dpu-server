@@ -58,6 +58,7 @@ namespace dpu_server.Knearest
             {
                 throw new System.ArgumentException("Parameter cannot be below 0\n");
             }
+
             return Math.Sqrt((Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2)));
         }
 
@@ -93,9 +94,9 @@ namespace dpu_server.Knearest
             }
 
             int N = PointArray.Length;
-            double[] dist = new double[PointArray.Length]; // Distance array where all the distances will be stored
+            double[] dist = new double[PointArray.Length]; // Distance array
             double[] w = new double[PointArray.Length]; // Weight array
-            double[] classArray = new double[c]; // class
+            double[] classArray = new double[c]; // Class array
 
             for (int i = 0; i < PointArray.Length; i++)
             {
