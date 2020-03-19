@@ -32,6 +32,7 @@ namespace dpu_server
 
         private IPAddress ipAddress;
         private IPEndPoint ipEndPoint;
+        private ConnState state = new ConnState();
 
         public ASyncSocket(string ip_, int port_)
         {
@@ -81,9 +82,11 @@ namespace dpu_server
         {
             try
             {
-                // Create the state object.  
-                ConnState state = new ConnState();
-                state.workSocket = client;
+                // Set the workSocket.
+                if (state.workSocket == null)
+                {
+                    state.workSocket = client;
+                }
 
                 // Begin receiving the data from the remote device.  
                 client.BeginReceive(state.recBuffer, 0, ConnState.recBufferSize, 0, new AsyncCallback(ReceiveCallback), state);
@@ -95,6 +98,8 @@ namespace dpu_server
             }
         }
 
+        // @TODO 
+        // Optimize this and make sure we receive all data, if it is send in chunks
         private void ReceiveCallback(IAsyncResult ar)
         {
             try
@@ -170,7 +175,7 @@ namespace dpu_server
             }
         }
 
-        public void Shutdown()
+        public void Shutdown(IAsyncResult ar)
         {
             client.Shutdown(SocketShutdown.Both);
             client.Close();
