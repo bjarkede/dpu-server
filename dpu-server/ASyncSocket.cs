@@ -125,7 +125,7 @@ namespace dpu_server
 
                     // Signal that all bytes have been received.  
                     receiveDone.Set();
-
+                    state.sb.Clear();
                     //client.BeginReceive(state.recBuffer, 0, ConnState.recBufferSize, 0, new AsyncCallback(ReceiveCallback), state);
                 }
                 else

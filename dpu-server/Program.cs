@@ -16,7 +16,7 @@ namespace dpu_server
         // Declare all sniffers in this array of structs
         private static fileDownloadSource_t[] fileDLSources =
         {
-            new fileDownloadSource_t {name = "SNF1", hostname = "", numericHostName = "192.168.86.158", port = 27015},
+            new fileDownloadSource_t {name = "SNF1", hostname = "", numericHostName = "192.168.208.132", port = 27015},
         };
 
         public static int Main(String[] args)
@@ -40,7 +40,7 @@ namespace dpu_server
                 }
 
                 System.Console.WriteLine("");
-                Thread.Sleep(1000);
+                Thread.Sleep(250);
             }
 
             return 0;
