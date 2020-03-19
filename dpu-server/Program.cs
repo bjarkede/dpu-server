@@ -92,8 +92,6 @@ namespace dpu_server
             using (var FFContext = new MyDbContext())
             {
 
-                //Reference[] refencepoint = new Reference[lineCount];
-
                 string[] entries = { "0" };
 
                 // Splitting the lines
@@ -102,19 +100,6 @@ namespace dpu_server
                     entries = line.Split(',');
                 }
 
-                //for (var i = 0; i < lineCount; i++)
-                //{
-                //    refencepoint[i] = new Reference
-                //    {
-                //        X = int.Parse(entries[0]),
-                //        Y = int.Parse(entries[1]),
-                //        RSSI1 = int.Parse(entries[2]),
-                //        RSSI2 = int.Parse(entries[3]),
-                //        RSSI3 = int.Parse(entries[4]),
-                //    };
-
-                //    FFContext.References.Add(refencepoint[i]);
-                //}
 
                 var referencepoint = new Referencepoint
                 {
