@@ -7,6 +7,8 @@ namespace dpu_server.Models
 	{
 		public int ReferenceID { get; set; }
 
+		public int Category { get; set; } // ClusterID
+
 		public int RSSI1 { get; set; }
 
 		public int RSSI2 { get; set; }
