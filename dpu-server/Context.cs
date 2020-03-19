@@ -12,7 +12,7 @@ namespace dpu_server
     {
         //public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
 
-        public DbSet<Reference> References { get; set; }
+        public DbSet<Referencepoint> Referencepoints { get; set; }
 
         public DbSet<Heatmap> Heatmaps { get; set; }
 
@@ -25,30 +25,22 @@ namespace dpu_server
         {
             //Reference
 
-            modelBuilder.Entity<Reference>().HasKey(r => r.ReferenceID);
+            modelBuilder.Entity<Referencepoint>().HasKey(r => r.ReferencepointID);
 
-            // Heatmap
+            // Heatmap has X and Y points, found in the shadow table heatmapreference
 
             modelBuilder.Entity<Heatmap>().HasKey(h => h.HeatmapID);
-
-            // Heatmap has X and Y points, which are the reference points found in the reference table
-
             modelBuilder.Entity<Heatmap>()
-                .HasOne<Reference>(r => r.Reference)
+                .HasOne<Referencepoint>(rf => rf.Referencepoints)
                 .WithOne(h => h.Heatmap)
-                .HasForeignKey<Reference>(r => r.X);
-
-            modelBuilder.Entity<Heatmap>()
-                .HasOne<Reference>(r => r.Reference)
-                .WithOne(h => h.Heatmap)
-                .HasForeignKey<Reference>(r => r.Y);
+                .HasForeignKey<Referencepoint>(hmr => hmr.ReferencepointID);
 
         }
 
         public IEnumerable<Heatmap> LoadEager()
         {
             var Heatmapdata = Heatmaps
-                .Include(h => h.Reference)
+                .Include(r => r.Referencepoints)
                 .ToList();
 
             return Heatmapdata;

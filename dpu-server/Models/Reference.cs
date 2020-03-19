@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace dpu_server.Models
 {
-	public class Reference
+	public class Referencepoint
 	{
-		public int ReferenceID { get; set; }
+		public int ReferencepointID { get; set; }
 
 		public int Category { get; set; } // ClusterID
 
@@ -19,6 +19,7 @@ namespace dpu_server.Models
 
 		public int Y { get; set; }
 
+		public int HeatmapID { get; set; }
         public Heatmap Heatmap { get; set;}
 	}
 }

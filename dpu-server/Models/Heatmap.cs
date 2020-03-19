@@ -8,9 +8,10 @@ namespace dpu_server.Models
         public int HeatmapID { get; set; }
 
         public int Strength { get; set; }
+        
+        public int X { get; set; }
 
-        public Reference Y { get; set; }
-        public Reference X { get; set; }
-        public Reference Reference { get; set; }
+        public int Y { get; set; }
+        public Referencepoint Referencepoints { get; set; }
     }
 }
