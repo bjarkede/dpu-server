@@ -19,7 +19,5 @@ namespace dpu_server.Models
 
 		public int Y { get; set; }
 
-		public int HeatmapID { get; set; }
-        public Heatmap Heatmap { get; set;}
 	}
 }

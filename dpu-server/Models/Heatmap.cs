@@ -12,6 +12,5 @@ namespace dpu_server.Models
         public int X { get; set; }
 
         public int Y { get; set; }
-        public Referencepoint Referencepoints { get; set; }
     }
 }

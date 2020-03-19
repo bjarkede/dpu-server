@@ -79,32 +79,46 @@ namespace dpu_server
         {
             //StartClient();
 
-            string filepath = @"C:\Users\mongl\data.txt";
+            //string filepath = @"C:\Users\mongl\data.txt";
 
-            List<string> lines = File.ReadAllLines(filepath).ToList();
-            var lineCount = File.ReadLines(filepath).Count();
+            //List<string> lines = File.ReadAllLines(filepath).ToList();
+            //var lineCount = File.ReadLines(filepath).Count();
 
-            foreach (var line in lines)
-            {
-                Console.WriteLine(line);
-            }
+            //foreach (var line in lines)
+            //{
+            //    Console.WriteLine(line);
+            //}
 
             using (var FFContext = new MyDbContext())
             {
 
-                //Reference[] refencepoint = new Reference[lineCount];
 
-                string[] entries = { "0" };
 
-                // Splitting the lines
-                foreach (var line in lines)
-                {
-                    entries = line.Split(',');
-                }
+                //    //Reference[] refencepoint = new Reference[lineCount];
 
-                //for (var i = 0; i < lineCount; i++)
-                //{
-                //    refencepoint[i] = new Reference
+                //    string[] entries = { "0" };
+
+                //    // Splitting the lines
+                //    foreach (var line in lines)
+                //    {
+                //        entries = line.Split(',');
+                //    }
+
+                //    //for (var i = 0; i < lineCount; i++)
+                //    //{
+                //    //    refencepoint[i] = new Reference
+                //    //    {
+                //    //        X = int.Parse(entries[0]),
+                //    //        Y = int.Parse(entries[1]),
+                //    //        RSSI1 = int.Parse(entries[2]),
+                //    //        RSSI2 = int.Parse(entries[3]),
+                //    //        RSSI3 = int.Parse(entries[4]),
+                //    //    };
+
+                //    //    FFContext.References.Add(refencepoint[i]);
+                //    //}
+
+                //    var referencepoint = new Referencepoint
                 //    {
                 //        X = int.Parse(entries[0]),
                 //        Y = int.Parse(entries[1]),
@@ -113,28 +127,29 @@ namespace dpu_server
                 //        RSSI3 = int.Parse(entries[4]),
                 //    };
 
-                //    FFContext.References.Add(refencepoint[i]);
-                //}
-
-                var referencepoint = new Referencepoint
+                var Referencepoint1 = new Referencepoint
                 {
-                    X = int.Parse(entries[0]),
-                    Y = int.Parse(entries[1]),
-                    RSSI1 = int.Parse(entries[2]),
-                    RSSI2 = int.Parse(entries[3]),
-                    RSSI3 = int.Parse(entries[4]),
+                    Category = 1,
+                    RSSI1 = 1,
+                    RSSI2 = 2,
+                    RSSI3 = 3,
+                    X = 1,
+                    Y = 1,
                 };
 
-                var Heatmapinstance = new Heatmap
-                {
-                    Strength = 1,
-                    X = referencepoint.X,
-                    Y = referencepoint.Y,
-                };
-
-                FFContext.Heatmaps.Add(Heatmapinstance);
-                FFContext.Referencepoints.Add(referencepoint);
+                FFContext.Referencepoints.Add(Referencepoint1);
                 FFContext.SaveChanges();
+
+                //    var Heatmapinstance = new Heatmap
+                //    {
+                //        Strength = 1,
+                //        X = referencepoint.X,
+                //        Y = referencepoint.Y,
+                //    };
+
+                //    FFContext.Heatmaps.Add(Heatmapinstance);
+                //    FFContext.Referencepoints.Add(referencepoint);
+                //    FFContext.SaveChanges();
             }
             return 0;
         }
