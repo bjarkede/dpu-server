@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace dpu_server.Models
 {
@@ -8,9 +10,7 @@ namespace dpu_server.Models
         public int HeatmapID { get; set; }
 
         public int Strength { get; set; }
-        
-        public int X { get; set; }
 
-        public int Y { get; set; }
+        public Referencepoint Referencepoint { get; set; }
     }
 }

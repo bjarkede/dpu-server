@@ -9,7 +9,7 @@ using dpu_server;
 namespace dpu_server.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20200319105107_test1")]
+    [Migration("20200320132526_test1")]
     partial class test1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,12 +30,6 @@ namespace dpu_server.Migrations
                     b.Property<int>("Strength")
                         .HasColumnType("int");
 
-                    b.Property<int>("X")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Y")
-                        .HasColumnType("int");
-
                     b.HasKey("HeatmapID");
 
                     b.ToTable("Heatmaps");
@@ -49,6 +43,9 @@ namespace dpu_server.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Category")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HeatmapFK")
                         .HasColumnType("int");
 
                     b.Property<int>("RSSI1")
@@ -68,7 +65,19 @@ namespace dpu_server.Migrations
 
                     b.HasKey("ReferencepointID");
 
+                    b.HasIndex("HeatmapFK")
+                        .IsUnique();
+
                     b.ToTable("Referencepoints");
+                });
+
+            modelBuilder.Entity("dpu_server.Models.Referencepoint", b =>
+                {
+                    b.HasOne("dpu_server.Models.Heatmap", "Heatmap")
+                        .WithOne("Referencepoint")
+                        .HasForeignKey("dpu_server.Models.Referencepoint", "HeatmapFK")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

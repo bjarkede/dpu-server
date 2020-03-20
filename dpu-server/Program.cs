@@ -92,41 +92,6 @@ namespace dpu_server
             using (var FFContext = new MyDbContext())
             {
 
-
-
-                //    //Reference[] refencepoint = new Reference[lineCount];
-
-                //    string[] entries = { "0" };
-
-                //    // Splitting the lines
-                //    foreach (var line in lines)
-                //    {
-                //        entries = line.Split(',');
-                //    }
-
-                //    //for (var i = 0; i < lineCount; i++)
-                //    //{
-                //    //    refencepoint[i] = new Reference
-                //    //    {
-                //    //        X = int.Parse(entries[0]),
-                //    //        Y = int.Parse(entries[1]),
-                //    //        RSSI1 = int.Parse(entries[2]),
-                //    //        RSSI2 = int.Parse(entries[3]),
-                //    //        RSSI3 = int.Parse(entries[4]),
-                //    //    };
-
-                //    //    FFContext.References.Add(refencepoint[i]);
-                //    //}
-
-                //    var referencepoint = new Referencepoint
-                //    {
-                //        X = int.Parse(entries[0]),
-                //        Y = int.Parse(entries[1]),
-                //        RSSI1 = int.Parse(entries[2]),
-                //        RSSI2 = int.Parse(entries[3]),
-                //        RSSI3 = int.Parse(entries[4]),
-                //    };
-
                 var Referencepoint1 = new Referencepoint
                 {
                     Category = 1,
@@ -140,17 +105,6 @@ namespace dpu_server
                 FFContext.Referencepoints.Add(Referencepoint1);
                 FFContext.SaveChanges();
 
-                //    var Heatmapinstance = new Heatmap
-                //    {
-                //        Strength = 1,
-                //        X = referencepoint.X,
-                //        Y = referencepoint.Y,
-                //    };
-
-                //    FFContext.Heatmaps.Add(Heatmapinstance);
-                //    FFContext.Referencepoints.Add(referencepoint);
-                //    FFContext.SaveChanges();
-            }
             return 0;
         }
     }

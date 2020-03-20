@@ -12,9 +12,7 @@ namespace dpu_server.Migrations
                 {
                     HeatmapID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Strength = table.Column<int>(nullable: false),
-                    X = table.Column<int>(nullable: false),
-                    Y = table.Column<int>(nullable: false)
+                    Strength = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,21 +30,34 @@ namespace dpu_server.Migrations
                     RSSI2 = table.Column<int>(nullable: false),
                     RSSI3 = table.Column<int>(nullable: false),
                     X = table.Column<int>(nullable: false),
-                    Y = table.Column<int>(nullable: false)
+                    Y = table.Column<int>(nullable: false),
+                    HeatmapFK = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Referencepoints", x => x.ReferencepointID);
+                    table.ForeignKey(
+                        name: "FK_Referencepoints_Heatmaps_HeatmapFK",
+                        column: x => x.HeatmapFK,
+                        principalTable: "Heatmaps",
+                        principalColumn: "HeatmapID",
+                        onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Referencepoints_HeatmapFK",
+                table: "Referencepoints",
+                column: "HeatmapFK",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Heatmaps");
+                name: "Referencepoints");
 
             migrationBuilder.DropTable(
-                name: "Referencepoints");
+                name: "Heatmaps");
         }
     }
 }

@@ -24,27 +24,16 @@ namespace dpu_server
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Reference
-
             modelBuilder.Entity<Referencepoint>().HasKey(r => r.ReferencepointID);
 
-            // Heatmap has X and Y points, found in the shadow table heatmapreference
-
+            //Heatmap
             modelBuilder.Entity<Heatmap>().HasKey(h => h.HeatmapID);
-            //    modelBuilder.Entity<Heatmap>()
-            //        .HasOne<Referencepoint>(rf => rf.Referencepoints)
-            //        .WithOne(h => h.Heatmap)
-            //        .HasForeignKey<Referencepoint>(hmr => hmr.ReferencepointID);
 
-            //}
-
-            //public IEnumerable<Heatmap> LoadEager()
-            //{
-            //    var Heatmapdata = Heatmaps
-            //        .Include(r => r.Referencepoints)
-            //        .ToList();
-
-            //    return Heatmapdata;
-            //}
+            //Heatmap one to one relationship (One HeatmapID has a Referencepoint)
+            modelBuilder.Entity<Heatmap>()
+                .HasOne<Referencepoint>(H => H.Referencepoint)
+                .WithOne(R => R.Heatmap)
+                .HasForeignKey<Referencepoint>(R => R.HeatmapFK);
         }
     }
 }
