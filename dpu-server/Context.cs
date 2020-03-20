@@ -18,7 +18,7 @@ namespace dpu_server
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source=LAPTOP-5VIV2QMO\\FRUITFLY;Initial Catalog=FruitFly;Integrated Security=True");
+            optionsBuilder.UseSqlServer("Server=tcp:fruitflyserver.database.windows.net,1433;Initial Catalog=FruitFly;Persist Security Info=False;User ID=dalleman;Password=Frugtflue1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -30,20 +30,21 @@ namespace dpu_server
             // Heatmap has X and Y points, found in the shadow table heatmapreference
 
             modelBuilder.Entity<Heatmap>().HasKey(h => h.HeatmapID);
-            modelBuilder.Entity<Heatmap>()
-                .HasOne<Referencepoint>(rf => rf.Referencepoints)
-                .WithOne(h => h.Heatmap)
-                .HasForeignKey<Referencepoint>(hmr => hmr.ReferencepointID);
+            //    modelBuilder.Entity<Heatmap>()
+            //        .HasOne<Referencepoint>(rf => rf.Referencepoints)
+            //        .WithOne(h => h.Heatmap)
+            //        .HasForeignKey<Referencepoint>(hmr => hmr.ReferencepointID);
 
-        }
+            //}
 
-        public IEnumerable<Heatmap> LoadEager()
-        {
-            var Heatmapdata = Heatmaps
-                .Include(r => r.Referencepoints)
-                .ToList();
+            //public IEnumerable<Heatmap> LoadEager()
+            //{
+            //    var Heatmapdata = Heatmaps
+            //        .Include(r => r.Referencepoints)
+            //        .ToList();
 
-            return Heatmapdata;
+            //    return Heatmapdata;
+            //}
         }
     }
 }

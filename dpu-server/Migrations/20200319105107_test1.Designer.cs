@@ -9,8 +9,8 @@ using dpu_server;
 namespace dpu_server.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20200313135857_init")]
-    partial class init
+    [Migration("20200319105107_test1")]
+    partial class test1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,36 +41,14 @@ namespace dpu_server.Migrations
                     b.ToTable("Heatmaps");
                 });
 
-            modelBuilder.Entity("dpu_server.Models.HeatmapReference", b =>
+            modelBuilder.Entity("dpu_server.Models.Referencepoint", b =>
                 {
-                    b.Property<int>("HeatmapReferenceID")
+                    b.Property<int>("ReferencepointID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("HeatmapID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ReferenceX")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ReferenceY")
-                        .HasColumnType("int");
-
-                    b.HasKey("HeatmapReferenceID");
-
-                    b.HasIndex("ReferenceY")
-                        .IsUnique();
-
-                    b.ToTable("HeatmapReferences");
-                });
-
-            modelBuilder.Entity("dpu_server.Models.Reference", b =>
-                {
-                    b.Property<int>("ReferenceID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HeatmapID")
+                    b.Property<int>("Category")
                         .HasColumnType("int");
 
                     b.Property<int>("RSSI1")
@@ -88,36 +66,9 @@ namespace dpu_server.Migrations
                     b.Property<int>("Y")
                         .HasColumnType("int");
 
-                    b.HasKey("ReferenceID");
+                    b.HasKey("ReferencepointID");
 
-                    b.HasIndex("HeatmapID")
-                        .IsUnique();
-
-                    b.ToTable("References");
-                });
-
-            modelBuilder.Entity("dpu_server.Models.HeatmapReference", b =>
-                {
-                    b.HasOne("dpu_server.Models.Heatmap", "Heatmap")
-                        .WithOne("HeatmapReference")
-                        .HasForeignKey("dpu_server.Models.HeatmapReference", "ReferenceY")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("dpu_server.Models.Reference", b =>
-                {
-                    b.HasOne("dpu_server.Models.Heatmap", "Heatmap")
-                        .WithOne("References")
-                        .HasForeignKey("dpu_server.Models.Reference", "HeatmapID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("dpu_server.Models.HeatmapReference", "HeatmapReference")
-                        .WithOne("Reference")
-                        .HasForeignKey("dpu_server.Models.Reference", "ReferenceID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.ToTable("Referencepoints");
                 });
 #pragma warning restore 612, 618
         }
