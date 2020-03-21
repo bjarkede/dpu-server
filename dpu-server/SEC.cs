@@ -31,8 +31,8 @@ namespace dpu_server
 
             System.Console.WriteLine("");
 
-           // Make the clusters
-           clusters = new List<Point2D>[k];
+            // Make the clusters
+            clusters = new List<Point2D>[k];
             centroids = new Circle2D[k];
 
             // Select k points from points and set them as centroids.
@@ -70,7 +70,6 @@ namespace dpu_server
 
                     // If the new distance is smaller than the others we have seen
                     // update the distance and the cluster.
-
                     if (newDistance <= oldDistance)
                     {
                         oldDistance = newDistance;
@@ -78,6 +77,7 @@ namespace dpu_server
                     }
                 }
 
+                points[i].classification = clusterIndex; // This is the cluster where the point resides
                 clusters[clusterIndex].Add(points[i]);
             }
 
@@ -85,13 +85,6 @@ namespace dpu_server
             for (int i = 0; i < k; i++)
             {
                 SmallestEnclosingCircle(ref clusters[i], ref centroids[i]);
-            }
-
-            System.Console.WriteLine("Smallest Enclosing Cirlce (SEC) Complete: ");
-            System.Console.WriteLine("");
-            for (int i = 0; i < k; i++)
-            {
-                System.Console.WriteLine("      ({0},{1}), {2}", centroids[i].p.x, centroids[i].p.y, centroids[i].radius);
             }
 
             // Now we need to decide if the algoritm has to run again.
@@ -110,6 +103,11 @@ namespace dpu_server
 
             if (numberOfEquals == k)
             {
+                // @TODO:
+                // Entering this if-statement, means that the clustering is done. Now we have to insert
+                // each point back into the database, along with their classification (clusterIndex).
+                // Furthermore we will add the centroid center coordinates to the database. 
+
                 return; // SEC is done
             }
 
@@ -122,16 +120,16 @@ namespace dpu_server
             Array.Copy(centroids, previousCentroids, centroids.Length);
         }
 
-        public double distance(double x1, double x2, double y1, double y2)
+        public static double distance(double x1, double x2, double y1, double y2)
         {
             return Math.Sqrt(((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1)));
         }
 
-        public Point2D bary(in Point2D A, in Point2D B, in Point2D C, double a, double b, double c)
+        public static Point2D bary(in Point2D A, in Point2D B, in Point2D C, double a, double b, double c)
         {
             return (A * a + B * b + C * c) / (a + b + c);
         }
-        public Point2D circumcenter(in Point2D A, in Point2D B, in Point2D C)
+        public static Point2D circumcenter(in Point2D A, in Point2D B, in Point2D C)
         {
             double a = (B - C).norm2();
             double b = (C - A).norm2();
@@ -140,7 +138,7 @@ namespace dpu_server
             return bary(A, B, C, a * (b + c - a), b * (c + a - b), c * (a + b - c));
         }
 
-        public void SmallestEnclosingCircle(ref List<Point2D> P, ref Circle2D center) {
+        public static void SmallestEnclosingCircle(ref List<Point2D> P, ref Circle2D center) {
             P.Shuffle();
             double N = P.Count;
 
@@ -173,6 +171,7 @@ namespace dpu_server
 
     }
 
+    // We use this extension to shuffle our lists of points.
     static class MyExtension
     {
         private static Random rng = new Random();
