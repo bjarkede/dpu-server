@@ -6,13 +6,13 @@ namespace dpu_server
 {
     class Point2D
     {
-        double x, y, distance;
-        int classification;
+        public double x, y, distance;
+        public int classification;
 
         public Point2D(double x_, double _y) { x = x_; y = _y; }
 
-        double norm2() { return (x * x) + (y * y); }
-        double norm() { return Math.Sqrt(norm2()); }
+        public double norm2() { return (x * x) + (y * y); }
+        public double norm() { return Math.Sqrt(norm2()); }
 
         public static bool operator <(Point2D p1, Point2D p2)
         {
@@ -45,7 +45,12 @@ namespace dpu_server
 
     class Circle2D
     {
-        Point2D p;
-        double radius;
+        public Point2D p;
+        public double radius;
+        public Circle2D(Point2D p_, double r)
+        {
+            p = p_;
+            radius = r;
+        }
     }
 }
