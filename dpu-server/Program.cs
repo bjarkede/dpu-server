@@ -21,7 +21,10 @@ namespace dpu_server
 
         public static int Main(String[] args)
         {
-            ASyncSocket[] sockets = new ASyncSocket[NUM_SOURCES];
+            // @Note:
+            // Comment the code below back in when we are done testing.
+            /* --------------------------------------------------------
+             * ASyncSocket[] sockets = new ASyncSocket[NUM_SOURCES];
 
             for (int i = 0; i < NUM_SOURCES; i++)
             {
@@ -42,6 +45,11 @@ namespace dpu_server
                 System.Console.WriteLine("");
                 Thread.Sleep(250);
             }
+            * --------------------------------------------------------
+            */
+
+            SEC test = new SEC();
+            test.Cluster();
 
             return 0;
         }

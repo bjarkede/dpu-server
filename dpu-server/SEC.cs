@@ -22,26 +22,30 @@ namespace dpu_server
 
             Random r = new Random();
 
-
             for(int i = 0; i < numberOfReferencePoints; i++)
             {
-
                 Point2D p = new Point2D(r.Next(-250, 250), r.Next(-250, 250));
+                System.Console.WriteLine("({0}, {1})", p.x, p.y);
                 points.Add(p);
             }
 
-            // Make the clusters
-            clusters = new List<Point2D>[k];
+            System.Console.WriteLine("");
+
+           // Make the clusters
+           clusters = new List<Point2D>[k];
             centroids = new Circle2D[k];
 
             // Select k points from points and set them as centroids.
+            // Also create the clusters
             for(int i = 0; i < k; i++)
             {
+                clusters[i] = new List<Point2D>();
+                centroids[i] = new Circle2D(new Point2D(0, 0), 0);
+
                 // @TODO make the point selection random
                 // Create the center of the SEC.
                 centroids[i].p.x = points[i].x;
                 centroids[i].p.y = points[i].y;
-                centroids[i].radius = 0; // No radius yet.
             }
         }
 
@@ -84,6 +88,7 @@ namespace dpu_server
             }
 
             System.Console.WriteLine("Smallest Enclosing Cirlce (SEC) Complete: ");
+            System.Console.WriteLine("");
             for (int i = 0; i < k; i++)
             {
                 System.Console.WriteLine("      ({0},{1}), {2}", centroids[i].p.x, centroids[i].p.y, centroids[i].radius);
