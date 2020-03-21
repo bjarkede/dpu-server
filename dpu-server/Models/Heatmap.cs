@@ -7,7 +7,7 @@ namespace dpu_server.Models
 {
     public class Heatmap
     {
-        public int HeatmapID { get; set; }
+        public int HeatmapId { get; set; }
 
         public int Strength { get; set; }
 

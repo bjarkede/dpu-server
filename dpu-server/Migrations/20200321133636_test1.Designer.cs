@@ -9,7 +9,7 @@ using dpu_server;
 namespace dpu_server.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20200320132526_test1")]
+    [Migration("20200321133636_test1")]
     partial class test1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

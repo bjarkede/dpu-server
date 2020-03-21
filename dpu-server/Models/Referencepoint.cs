@@ -7,7 +7,7 @@ namespace dpu_server.Models
 {
 	public class Referencepoint
 	{
-		public int ReferencepointID { get; set; }
+		public int ReferencepointId { get; set; }
 
 		public int Category { get; set; } // ClusterID
 
@@ -21,7 +21,7 @@ namespace dpu_server.Models
 
 		public int Y { get; set; }
 
-		public int HeatmapFK { get; set; }
+		public int HeatmapId { get; set; }
 		public Heatmap Heatmap { get; set; }
 
 	}

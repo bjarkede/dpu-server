@@ -79,32 +79,51 @@ namespace dpu_server
         {
             //StartClient();
 
-            //string filepath = @"C:\Users\mongl\data.txt";
+            //    string Referencefilepath = @"C:\Users\mongl\reference.txt";
+            //    string Heatmapfilepath = @"C:\Users\mongl\heatmap.txt";
 
-            //List<string> lines = File.ReadAllLines(filepath).ToList();
-            //var lineCount = File.ReadLines(filepath).Count();
+            //    List<string> Hlines = File.ReadAllLines(Heatmapfilepath).ToList();
 
-            //foreach (var line in lines)
-            //{
-            //    Console.WriteLine(line);
+
+            //    using (var FFContext = new MyDbContext())
+            //    {
+            //        var Referencepoints = new List<Referencepoint>();
+
+            //        using (StreamReader r = new StreamReader(@"C:\Users\mongl\reference.txt"))
+            //        {
+            //            List<string> Rlines = File.ReadAllLines(Referencefilepath).ToList();
+
+            //            foreach (var line in Rlines)
+            //            {
+            //                string[] entries = line.Split(',');
+
+            //                var Referencepoint = new Referencepoint
+            //                {
+            //                    Category = int.Parse(entries[0]),
+            //                    RSSI1 = int.Parse(entries[1]),
+            //                    RSSI2 = int.Parse(entries[2]),
+            //                    RSSI3 = int.Parse(entries[3]),
+            //                    X = int.Parse(entries[4]),
+            //                    Y = int.Parse(entries[5]),
+            //                };
+
+            //                Referencepoints.Add(Referencepoint);
+            //                Console.WriteLine($" { Referencepoint.Category }");
+            //            }
+
+            //            foreach (var Referencepoint in Referencepoints)
+            //            {
+            //                FFContext.Referencepoints.Add(Referencepoint);
+            //            }
+
+            //            FFContext.SaveChanges();
+
+            //            Console.ReadLine();
+
+            //            return 0;
+            //        }
+            //    }
             //}
-
-            using (var FFContext = new MyDbContext())
-            {
-
-                var Referencepoint1 = new Referencepoint
-                {
-                    Category = 1,
-                    RSSI1 = 1,
-                    RSSI2 = 2,
-                    RSSI3 = 3,
-                    X = 1,
-                    Y = 1,
-                };
-
-                FFContext.Referencepoints.Add(Referencepoint1);
-                FFContext.SaveChanges();
-
             return 0;
         }
     }

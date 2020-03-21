@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using dpu_server.Configurations;
 using dpu_server.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,8 +6,6 @@ namespace dpu_server
 {
     public class MyDbContext : DbContext
     {
-        //public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
-
         public DbSet<Referencepoint> Referencepoints { get; set; }
 
         public DbSet<Heatmap> Heatmaps { get; set; }
@@ -23,17 +17,8 @@ namespace dpu_server
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //Reference
-            modelBuilder.Entity<Referencepoint>().HasKey(r => r.ReferencepointID);
-
-            //Heatmap
-            modelBuilder.Entity<Heatmap>().HasKey(h => h.HeatmapID);
-
-            //Heatmap one to one relationship (One HeatmapID has a Referencepoint)
-            modelBuilder.Entity<Heatmap>()
-                .HasOne<Referencepoint>(H => H.Referencepoint)
-                .WithOne(R => R.Heatmap)
-                .HasForeignKey<Referencepoint>(R => R.HeatmapFK);
+            modelBuilder.ApplyConfiguration(new ReferencepointConfiguration());
+            modelBuilder.ApplyConfiguration(new HeatmapConfiguration());
         }
     }
 }
