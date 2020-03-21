@@ -6,7 +6,7 @@ namespace dpu_server
 {
     class SEC
     {
-        private double EPS = 1e-8;
+        private static double EPS = 1e-8;
         private int numberOfReferencePoints;
         private int k;
         private List<Point2D> points = new List<Point2D>();
