@@ -81,13 +81,13 @@ namespace dpu_server
                 clusters[clusterIndex].Add(points[i]);
             }
 
-            // Perform the SmallestEnclosingCircle algoritme on our current clusters
+            // Perform the SmallestEnclosingCircle algorithm on our current clusters
             for (int i = 0; i < k; i++)
             {
                 SmallestEnclosingCircle(ref clusters[i], ref centroids[i]);
             }
 
-            // Now we need to decide if the algoritm has to run again.
+            // Now we need to decide if the algorithm has to run again.
             // @TODO:
             // Implement some kind of threshhold definition.
             // Right now we just see if the previous centroid is the same as the current one,
@@ -111,7 +111,7 @@ namespace dpu_server
                 return; // SEC is done
             }
 
-            // If the algoritm isn't done yet, clear the clusters and redo the clustering.
+            // If the algorithm isn't done yet, clear the clusters and redo the clustering.
             for(int i = 0; i < k; i++)
             {
                 clusters[i].Clear();
