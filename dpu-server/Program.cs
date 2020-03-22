@@ -79,51 +79,6 @@ namespace dpu_server
         {
             //StartClient();
 
-            //    string Referencefilepath = @"C:\Users\mongl\reference.txt";
-            //    string Heatmapfilepath = @"C:\Users\mongl\heatmap.txt";
-
-            //    List<string> Hlines = File.ReadAllLines(Heatmapfilepath).ToList();
-
-
-            //    using (var FFContext = new MyDbContext())
-            //    {
-            //        var Referencepoints = new List<Referencepoint>();
-
-            //        using (StreamReader r = new StreamReader(@"C:\Users\mongl\reference.txt"))
-            //        {
-            //            List<string> Rlines = File.ReadAllLines(Referencefilepath).ToList();
-
-            //            foreach (var line in Rlines)
-            //            {
-            //                string[] entries = line.Split(',');
-
-            //                var Referencepoint = new Referencepoint
-            //                {
-            //                    Category = int.Parse(entries[0]),
-            //                    RSSI1 = int.Parse(entries[1]),
-            //                    RSSI2 = int.Parse(entries[2]),
-            //                    RSSI3 = int.Parse(entries[3]),
-            //                    X = int.Parse(entries[4]),
-            //                    Y = int.Parse(entries[5]),
-            //                };
-
-            //                Referencepoints.Add(Referencepoint);
-            //                Console.WriteLine($" { Referencepoint.Category }");
-            //            }
-
-            //            foreach (var Referencepoint in Referencepoints)
-            //            {
-            //                FFContext.Referencepoints.Add(Referencepoint);
-            //            }
-
-            //            FFContext.SaveChanges();
-
-            //            Console.ReadLine();
-
-            //            return 0;
-            //        }
-            //    }
-            //}
             return 0;
         }
     }
