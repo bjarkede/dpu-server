@@ -8,7 +8,7 @@ using dpu_server;
 
 namespace dpu_server.Migrations
 {
-    [DbContext(typeof(MyDbContext))]
+    [DbContext(typeof(FruitFlyContext))]
     [Migration("20200321151739_test2")]
     partial class test2
     {

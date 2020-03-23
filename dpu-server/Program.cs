@@ -7,6 +7,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using dpu_server.Models;
+using dpu_server.Controller;
 
 namespace dpu_server
 {
@@ -78,6 +79,12 @@ namespace dpu_server
         public static int Main(String[] args)
         {
             //StartClient();
+
+            DatabaseControllerServer myController = new DatabaseControllerServer();
+
+            //myController.Connect();
+
+            myController.XYQuery();
 
             return 0;
         }

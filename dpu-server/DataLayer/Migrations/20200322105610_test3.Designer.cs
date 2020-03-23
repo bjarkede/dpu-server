@@ -8,9 +8,9 @@ using dpu_server;
 
 namespace dpu_server.Migrations
 {
-    [DbContext(typeof(MyDbContext))]
-    [Migration("20200323102733_test5")]
-    partial class test5
+    [DbContext(typeof(FruitFlyContext))]
+    [Migration("20200322105610_test3")]
+    partial class test3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,68 +22,68 @@ namespace dpu_server.Migrations
 
             modelBuilder.Entity("dpu_server.Models.Heatmap", b =>
                 {
-                    b.Property<int>("HeatmapID")
+                    b.Property<int>("HeatmapId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<float>("Strength")
-                        .HasColumnType("real");
+                    b.Property<int>("Strength")
+                        .HasColumnType("int");
 
-                    b.HasKey("HeatmapID");
+                    b.HasKey("HeatmapId");
 
                     b.ToTable("Heatmaps");
 
                     b.HasData(
                         new
                         {
-                            HeatmapID = 1,
-                            Strength = 1f
+                            HeatmapId = 1,
+                            Strength = 1
                         },
                         new
                         {
-                            HeatmapID = 2,
-                            Strength = 2f
+                            HeatmapId = 2,
+                            Strength = 2
                         },
                         new
                         {
-                            HeatmapID = 3,
-                            Strength = 3f
+                            HeatmapId = 3,
+                            Strength = 3
                         },
                         new
                         {
-                            HeatmapID = 4,
-                            Strength = 4f
+                            HeatmapId = 4,
+                            Strength = 4
                         },
                         new
                         {
-                            HeatmapID = 5,
-                            Strength = 2f
+                            HeatmapId = 5,
+                            Strength = 2
                         },
                         new
                         {
-                            HeatmapID = 6,
-                            Strength = 2f
+                            HeatmapId = 6,
+                            Strength = 2
                         },
                         new
                         {
-                            HeatmapID = 7,
-                            Strength = 3f
+                            HeatmapId = 7,
+                            Strength = 3
                         },
                         new
                         {
-                            HeatmapID = 8,
-                            Strength = 1f
+                            HeatmapId = 8,
+                            Strength = 1
                         },
                         new
                         {
-                            HeatmapID = 9,
-                            Strength = 4f
+                            HeatmapId = 9,
+                            Strength = 4
                         },
                         new
                         {
-                            HeatmapID = 10,
-                            Strength = 1f
+                            HeatmapId = 10,
+                            Strength = 1
                         });
                 });
 

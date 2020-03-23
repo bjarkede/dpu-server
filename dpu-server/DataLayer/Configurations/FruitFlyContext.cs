@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace dpu_server
 {
-    public class MyDbContext : DbContext
+    public class FruitFlyContext : DbContext
     {
         public DbSet<Referencepoint> Referencepoints { get; set; }
 
