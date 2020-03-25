@@ -7,7 +7,9 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using dpu_server.Models;
-using dpu_server.Controller;
+using dpu_server.DataLayer.Repositories;
+using System.Threading.Tasks;
+using dpu_server.ServiceLayer.Services;
 
 namespace dpu_server
 {
@@ -76,17 +78,23 @@ namespace dpu_server
             }
         }
 
+        private static ReferencepointService _referencepointService;
+
         public static int Main(String[] args)
         {
             //StartClient();
 
-            DatabaseControllerServer myController = new DatabaseControllerServer();
+            _referencepointService = new ReferencepointService(new ReferencepointRepository(new FruitFlyContext()));
 
-            //myController.Connect();
-
-            myController.XYQuery();
+            MainAsync(args).Wait();
 
             return 0;
+        }
+        static async Task MainAsync(string[] args)
+        {
+            var bob = await _referencepointService.GetByIdAsync(1);
+
+            var bob1 = await _referencepointService.DoesReferencepointExist(1);
         }
     }
 }
