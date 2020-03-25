@@ -42,6 +42,11 @@ namespace dpu_server
                     System.Console.Write("{0}, ", sockets[i].RSS);
                 }
 
+                // @TODO:
+                // This is where we need to run the weighted k-nearest neighbors algorithm.
+                // To do this we need, to gather all the sockets[i].RSS values into a list, that the algorithm
+                // can then process. We do this every 250ms. -bjarke, 25th March 2020.
+
                 System.Console.WriteLine("");
                 Thread.Sleep(250);
             }
