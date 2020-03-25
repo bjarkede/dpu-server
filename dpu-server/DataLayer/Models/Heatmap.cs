@@ -9,7 +9,7 @@ namespace dpu_server.Models
     {
         public int HeatmapID { get; set; }
 
-        public int Strength { get; set; }
+        public float Strength { get; set; }
 
         public Referencepoint Referencepoint { get; set; }
     }

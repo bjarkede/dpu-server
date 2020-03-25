@@ -13,12 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200320104016_test2.cs" />
-    <Compile Remove="Migrations\20200320104016_test2.Designer.cs" />
-    <Compile Remove="Migrations\20200320104608_test3.cs" />
-    <Compile Remove="Migrations\20200320104608_test3.Designer.cs" />
-    <Compile Remove="Migrations\20200320104732_test3.cs" />
-    <Compile Remove="Migrations\20200320104732_test3.Designer.cs" />
+    <Compile Remove="DataLayer\Migrations\20200320104016_test2.cs" />
+    <Compile Remove="DataLayer\Migrations\20200320104016_test2.Designer.cs" />
+    <Compile Remove="DataLayer\Migrations\20200320104608_test3.cs" />
+    <Compile Remove="DataLayer\Migrations\20200320104608_test3.Designer.cs" />
+    <Compile Remove="DataLayer\Migrations\20200320104732_test3.cs" />
+    <Compile Remove="DataLayer\Migrations\20200320104732_test3.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,6 +31,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="UnitTest\DataLayer\" />
   </ItemGroup>
 
 </Project>

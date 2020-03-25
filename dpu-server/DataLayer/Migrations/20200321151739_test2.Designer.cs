@@ -8,9 +8,9 @@ using dpu_server;
 
 namespace dpu_server.Migrations
 {
-    [DbContext(typeof(MyDbContext))]
-    [Migration("20200320132526_test1")]
-    partial class test1
+    [DbContext(typeof(FruitFlyContext))]
+    [Migration("20200321151739_test2")]
+    partial class test2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,7 +45,7 @@ namespace dpu_server.Migrations
                     b.Property<int>("Category")
                         .HasColumnType("int");
 
-                    b.Property<int>("HeatmapFK")
+                    b.Property<int>("HeatmapId")
                         .HasColumnType("int");
 
                     b.Property<int>("RSSI1")
@@ -65,7 +65,7 @@ namespace dpu_server.Migrations
 
                     b.HasKey("ReferencepointID");
 
-                    b.HasIndex("HeatmapFK")
+                    b.HasIndex("HeatmapId")
                         .IsUnique();
 
                     b.ToTable("Referencepoints");
@@ -75,7 +75,7 @@ namespace dpu_server.Migrations
                 {
                     b.HasOne("dpu_server.Models.Heatmap", "Heatmap")
                         .WithOne("Referencepoint")
-                        .HasForeignKey("dpu_server.Models.Referencepoint", "HeatmapFK")
+                        .HasForeignKey("dpu_server.Models.Referencepoint", "HeatmapId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
