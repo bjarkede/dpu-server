@@ -2,23 +2,13 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netcoreapp3.1.2</TargetFramework>
     <RootNamespace>dpu_server</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Tables\**" />
-    <EmbeddedResource Remove="Tables\**" />
-    <None Remove="Tables\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Migrations\20200320104016_test2.cs" />
-    <Compile Remove="Migrations\20200320104016_test2.Designer.cs" />
-    <Compile Remove="Migrations\20200320104608_test3.cs" />
-    <Compile Remove="Migrations\20200320104608_test3.Designer.cs" />
-    <Compile Remove="Migrations\20200320104732_test3.cs" />
-    <Compile Remove="Migrations\20200320104732_test3.Designer.cs" />
+    <Folder Include="Migrations\" />
+    <Folder Include="Tables\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +19,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.2">
       <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 
