@@ -6,10 +6,10 @@ namespace dpu_server.Knearest
 {
     class Point2D
     {
-        public double x, y, distance;
-        public int classification;
+        public double x, y;
+        public int classification, id;
 
-        public Point2D(double x_, double _y) { x = x_; y = _y; }
+        public Point2D(double x_, double _y) { x = x_; y = _y;}
 
         public double norm2() { return (x * x) + (y * y); }
         public double norm() { return Math.Sqrt(norm2()); }

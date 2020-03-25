@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using dpu_server.ServiceLayer.Services;
+using dpu_server.Knearest;
+using dpu_server.DataLayer.Repositories;
+using System.Threading.Tasks;
 
 namespace dpu_server
 {
@@ -12,24 +16,39 @@ namespace dpu_server
         private List<Point2D> points = new List<Point2D>();
         private List<Point2D>[] clusters;
         private Circle2D[] centroids;
+        private static ReferencepointService referencepointService;
+        private List<Models.Referencepoint> Tuples;
+
+        public async Task GetAllPoints()
+        {
+            Tuples = await referencepointService.GetAllAsync();
+            foreach(var t in Tuples)
+            {
+                Point2D p = new Point2D(t.X, t.Y);
+                p.id = t.ReferencepointId - 1; // The tuples are not zero indexed so minus their id by 1.
+                points.Add(p);
+            }
+ 
+            numberOfReferencePoints = Tuples.Count;
+            k = (int)Math.Sqrt(numberOfReferencePoints);
+        }
+
+        public void UpdateCategories(List<Point2D>[] clusters)
+        {
+            foreach (var clusterOfPoints in clusters)
+            {
+                foreach (var p in clusterOfPoints)
+                {
+                    Tuples[p.id].Category = p.classification;
+                    referencepointService.UpdateAsync(Tuples[p.id]).Wait();
+                }
+            }
+        }
 
         public SEC()
         {
-            // @TODO:
-            // Get all points from the database.
-            numberOfReferencePoints = 32;
-            k = 5; // Should be sqrt(numberOfReferencePoints)
-
-            Random r = new Random();
-
-            for(int i = 0; i < numberOfReferencePoints; i++)
-            {
-                Point2D p = new Point2D(r.Next(-250, 250), r.Next(-250, 250));
-                System.Console.WriteLine("({0}, {1})", p.x, p.y);
-                points.Add(p);
-            }
-
-            System.Console.WriteLine("");
+            referencepointService = new ReferencepointService(new ReferencepointRepository(new FruitFlyContext()));
+            GetAllPoints().Wait();
 
             // Make the clusters
             clusters = new List<Point2D>[k];
@@ -52,7 +71,6 @@ namespace dpu_server
         // This is where the clustering gets done.
         public void Cluster()
         {
-
             Circle2D[] previousCentroids = new Circle2D[k];
             Array.Copy(centroids, previousCentroids, centroids.Length);
 
@@ -87,6 +105,15 @@ namespace dpu_server
                 SmallestEnclosingCircle(ref clusters[i], ref centroids[i]);
             }
 
+            // @Note:
+            // Debugging only
+            System.Console.WriteLine("Smallest Enclosing Cirlce (SEC) Complete: ");
+            System.Console.WriteLine("");
+            for (int i = 0; i < k; i++)
+            {
+                System.Console.WriteLine("      ({0},{1}), {2}", centroids[i].p.x, centroids[i].p.y, centroids[i].radius);
+            }
+
             // Now we need to decide if the algorithm has to run again.
             // @TODO:
             // Implement some kind of threshhold definition.
@@ -107,6 +134,7 @@ namespace dpu_server
                 // Entering this if-statement, means that the clustering is done. Now we have to insert
                 // each point back into the database, along with their classification (clusterIndex).
                 // Furthermore we will add the centroid center coordinates to the database. 
+                UpdateCategories(clusters);
 
                 return; // SEC is done
             }
