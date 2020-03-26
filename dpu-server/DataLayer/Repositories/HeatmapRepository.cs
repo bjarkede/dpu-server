@@ -35,7 +35,7 @@ namespace dpu_server.DataLayer.Repositories
                 return false;
             }
         }
-        //TODO: SLET kan være man henter for meget data ud
+
         public override async Task<List<Heatmap>> GetAllAsync(bool tracking = false)
         {
             try
