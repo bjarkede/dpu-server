@@ -14,6 +14,7 @@ namespace dpu_server.UnitTest
     [TestFixture]
     public class UnittestDatalayer
     {
+        /*
         public UnittestDatalayer()
         {
             using (var db = new FruitFlyContext(SQLContext.TestDbContextOptions()))
@@ -22,7 +23,7 @@ namespace dpu_server.UnitTest
                 db.Database.EnsureCreated();
             }
         }
-
+        */
         [Test]
         public void CreateReferencepoint()
         {

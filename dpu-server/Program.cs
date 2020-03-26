@@ -21,10 +21,11 @@ namespace dpu_server
 
         public static int Main(String[] args)
         {
-            // @Note:
-            // Comment the code below back in when we are done testing.
-            /* --------------------------------------------------------
-             * ASyncSocket[] sockets = new ASyncSocket[NUM_SOURCES];
+            SEC test = new SEC();
+            test.Cluster();
+
+            /*ASyncSocket[] sockets = new ASyncSocket[NUM_SOURCES];
+            List<int> RSSIList = new List<int>();
 
             for (int i = 0; i < NUM_SOURCES; i++)
             {
@@ -46,15 +47,12 @@ namespace dpu_server
                 // This is where we need to run the weighted k-nearest neighbors algorithm.
                 // To do this we need, to gather all the sockets[i].RSS values into a list, that the algorithm
                 // can then process. We do this every 250ms. -bjarke, 25th March 2020.
+                
 
                 System.Console.WriteLine("");
                 Thread.Sleep(250);
             }
-            * --------------------------------------------------------
             */
-
-            SEC test = new SEC();
-            test.Cluster();
 
             return 0;
         }

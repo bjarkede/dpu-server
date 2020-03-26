@@ -10,10 +10,10 @@ namespace dpu_server
 
         public DbSet<Heatmap> Heatmaps { get; set; }
 
-        public FruitFlyContext(DbContextOptions<FruitFlyContext> optionsBuilder) : base(optionsBuilder)
+        /*public FruitFlyContext(DbContextOptions<FruitFlyContext> optionsBuilder) : base(optionsBuilder)
         {
 
-        }
+        }*/
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
