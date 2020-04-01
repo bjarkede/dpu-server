@@ -5,6 +5,7 @@ using System.Threading;
 using System.Text;
 using System.IO;
 using System.Resources;
+using System.Collections.Generic;
 
 namespace dpu_server
 {
@@ -45,7 +46,7 @@ namespace dpu_server
         public ManualResetEvent receiveDone = new ManualResetEvent(false);
         public ManualResetEvent allDone = new ManualResetEvent(false);
 
-        public String response = String.Empty; // Server response
+        public string[] response; // Server response
         public int RSS;
 
         public void StartClient()
@@ -119,8 +120,8 @@ namespace dpu_server
 
                     if (state.sb.Length > 1)
                     {
-                        response = state.sb.ToString();
-                        Int32.TryParse(response, out RSS);
+                        // We return an array of dns:rssi values
+                        response = state.sb.ToString().Split(",");
                     }
 
                     // Signal that all bytes have been received.  
@@ -132,7 +133,7 @@ namespace dpu_server
                 {
                     if (state.sb.Length > 1)
                     {
-                        response = state.sb.ToString();
+                        //response = state.sb.ToString();
                     }
 
                     // Signal that all bytes have been received.  
