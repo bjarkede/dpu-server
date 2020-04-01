@@ -37,30 +37,31 @@ namespace dpu_server
             
             while (true)
             {
+                // Request the file containing data on each ip and their received signal strength to the sniffer.
                 for (int i = 0; i < NUM_SOURCES; i++)
                 {
                     sockets[i].Send("RETR test.txt");
                     sockets[i].Receive();
 
-                    // Split each dns:rssi into an item and add it to the dictionary.
+                    // @Speed:
+                    // Could probably make the code below take less time/use
+                    // less memory - bjarke, 1st april 2020.
                     for (int j = 0; j < sockets[i].response.Length; j++)
                     {
                         var item = sockets[i].response[j].Split(":");
                         try
                         {
+                            // Try adding the ip as a key, into the dictionary.
+                            // If succesful, create the list containing the received signal strength values
                             dict.Add(item[0], new List<string>() { item[1] });
                         } catch (ArgumentException)
                         {
-                            //Key already exits in the dict so append it to the list
+                            // If the key already exist in the dictionary, we add the new rssi value
+                            // to the list linked to that key.
                             dict[item[0]].Add(item[1]);
                         }
                     }
                 }
-
-                // @TODO:
-                // This is where we need to run the weighted k-nearest neighbors algorithm.
-                // To do this we need, to gather all the sockets[i].RSS values into a list, that the algorithm
-                // can then process. We do this every 250ms. -bjarke, 25th March 2020.
                 
                 // Make the list of RSSI values.
                 foreach (KeyValuePair<string, List<string>> p in dict)
@@ -68,44 +69,8 @@ namespace dpu_server
                     RSSIList.Add(p.Value.Select(int.Parse).ToList());
                 }
 
-                System.Console.WriteLine("");
                 Thread.Sleep(250);
             }
-
-            // Below is for testing.
-            /*List<string[]> list = new List<string[]>();
-
-            list.Add("7.192.163.51:88,199.187.194.244:56,6.38.202.48:100".Split(","));
-            list.Add("7.192.163.51:34,199.187.194.244:23,6.38.202.48:24".Split(","));
-            list.Add("7.192.163.51:78,199.187.194.244:67,6.38.202.48:53".Split(","));
-
-            for (int i = 0; i < 3; i++)
-            {
-                for (int j = 0; j < list[i].Length; j++)
-                {
-                    var item = list[i][j].Split(":");
-                    try
-                    {
-                        dict.Add(item[0], new List<string>() { item[1] });
-                    } catch (ArgumentException)
-                    {
-                        //Key already exits in the dict
-                        dict[item[0]].Add(item[1]);
-                    }
-                }
-            }
-
-            foreach(KeyValuePair<string, List<string>> p in dict) {
-                RSSIList.Add(p.Value.Select(int.Parse).ToList());
-            }
-        
-            foreach(var l in RSSIList)
-            {
-                foreach(int i in l)
-                {
-                    System.Console.WriteLine("{0}", i);
-                }
-            }*/
             
             return 0;
         }
