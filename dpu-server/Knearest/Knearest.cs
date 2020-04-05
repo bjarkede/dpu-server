@@ -1,6 +1,8 @@
-﻿using System;
+﻿using dpu_server.ServiceLayer.Services;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace dpu_server.Knearest
 {
@@ -27,39 +29,23 @@ namespace dpu_server.Knearest
     //}
 
 
-
-    #region Point Class
-
-    // Point which consists of an X and Y coordinate
-    public class Point
-    {
-        public double X { get; set; }
-        public double Y { get; set; }
-        public int id { get; set; }
-
-        public Point(double x, double y)
-        {
-            X = x;
-            Y = y;
-        }
-    }
-
-    #endregion
-
     #region Knearest Algorithm
 
     public class Knearest
     {
-        // Euclidean distance function (Two dimensional)
-        // Returns the difference between the target point and points 
-        private static double Distance(Point p1, Point p2)
-        {
-            if (p1.X < 0 || p1.Y < 0 || p2.X < 0 || p2.Y < 0)
-            {
-                throw new System.ArgumentException("Parameter cannot be below 0\n");
-            }
 
-            return Math.Sqrt((Math.Pow(p1.X - p2.X, 2) + Math.Pow(p1.Y - p2.Y, 2)));
+        private static ReferencepointService referencepointService;
+        List<Tuple<List<int>, int>> rssiData;
+
+        // Euclidean distance function (Two dimensional)
+        private static double Distance(List<int> l1, List<int> l2)
+        {
+            double result = 0;
+            for (int i = 0; i < l1.Count; i++)
+            {
+                result += Math.Pow(l1[i] - l2[i], 2);
+            }
+            return Math.Sqrt(result);
         }
 
         // Weight function to generate weights for points
@@ -81,26 +67,40 @@ namespace dpu_server.Knearest
             return Weights;
         }
 
+        public async Task getAllRssiData()
+        {
+            var Tuples = await referencepointService.GetAllAsync();
+            foreach (var t in Tuples)
+            {
+                rssiData.Add(Tuple.Create(new List<int> { t.RSSI1, t.RSSI2, t.RSSI3 }, t.Category));
+            }
+        }
+
+        public Knearest()
+        {
+            getAllRssiData().Wait();
+        }
+
         // Classification: input sqrt(number of datapoints)
 
-        // n = number of data points in the database, k = neighbours to the target, c = class/id.
-        // PointArray = array of points in the database.
-        // Target = target point to run the knearest on.
-        public int WeightedKNN(Point[] PointArray, int k, Point Target, int c)
+        // rssivalues is all the rssi values in the database.
+        // c is the catogory of the rssi values. Cluster ID
+        // k is the number of neighbours.
+        public int WeightedKNN(int k, List<int> rssivalues, int c)
         {
-            if (k < 1 || PointArray.Length > k)
+            if (k < 1 || rssiData.Count > k)
             {
                 throw new System.ArgumentException("Number of neighbours k cannot be below 1 or Array cannot be greater than the number of neighbours\n");
             }
 
-            int N = PointArray.Length;
-            double[] dist = new double[PointArray.Length]; // Distance array
-            double[] w = new double[PointArray.Length]; // Weight array
+            int N = rssiData.Count;
+            double[] dist = new double[N]; // Distance array
+            double[] w = new double[N]; // Weight array
             double[] classArray = new double[c]; // Class array
 
-            for (int i = 0; i < PointArray.Length; i++)
+            for (int i = 0; i < N; i++)
             {
-                dist[i] = (int)Distance(Target, PointArray[i]); // Distance is calculated and stored
+                dist[i] = Distance(rssivalues, rssiData[i].Item1); // Distance is calculated and stored
             }
 
             // Ordering the array
@@ -145,15 +145,19 @@ namespace dpu_server.Knearest
             for (int i = 0; i < k; ++i)
             {
                 int po = orderingArray[i];
-                Point predictedpoint = PointArray[po];
-                Console.WriteLine($" {predictedpoint.X} , {predictedpoint.Y}");
+                List<int> predictedrssi = rssiData[po].Item1;
+                foreach (var item in predictedrssi)
+                {
+                    Console.Write("{0},", item);
+                }
+                Console.WriteLine("");
             }
 
             // predicting the class
             for (int i = 0; i < k; i++)
             {
                 int corder = orderingArray[i];
-                int predictedclass = PointArray[corder].id;
+                int predictedclass = rssiData[corder].Item2;
                 classArray[predictedclass] += w[i];
             }
 
