@@ -11,6 +11,8 @@ namespace dpu_server.Models
 
         public float Strength { get; set; }
 
+        [ForeignKey("Referencepoint")]
+        public int ReferencepointId { get; set; }
         public Referencepoint Referencepoint { get; set; }
     }
 }

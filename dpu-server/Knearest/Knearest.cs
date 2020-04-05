@@ -12,6 +12,7 @@ namespace dpu_server.Knearest
     {
         private int numberOfClusters;
         private static ReferencepointService referencepointService;
+        private static HeatmapService heatmapService;
         List<Tuple<List<int>, int, int>> rssiData = new List<Tuple<List<int>, int, int>>();
 
         // Euclidean distance function (Two dimensional)
@@ -62,6 +63,12 @@ namespace dpu_server.Knearest
             return tuple;
         }
 
+        public async Task addHeatmapData(int id)
+        {
+            Models.Heatmap heatmap = new Models.Heatmap();
+            heatmap.ReferencepointId = id;
+            await heatmapService.AddAsync(heatmap);
+        }
         public async Task<string> ShowClosestPoint(int id)
         {
             var tuple = await GetPointByID(id + 1);
@@ -71,6 +78,7 @@ namespace dpu_server.Knearest
         public Knearest()
         {
             referencepointService = new ReferencepointService(new ReferencepointRepository(new FruitFlyContext()));
+            heatmapService = new HeatmapService(new HeatmapRepository(new FruitFlyContext()));
             getAllRssiData().Wait();
         }
 
@@ -130,7 +138,9 @@ namespace dpu_server.Knearest
             }
 
             Console.WriteLine(ShowClosestPoint(index).Result);
-    
+
+            addHeatmapData(index).Wait();
+
             return 0;
 
         }

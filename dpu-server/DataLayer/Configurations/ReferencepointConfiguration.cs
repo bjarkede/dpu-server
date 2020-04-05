@@ -28,7 +28,7 @@ namespace dpu_server.Configurations
                         RSSI3 = rand.Next(1, 100),
                         X = rand.Next(1, 100),
                         Y = rand.Next(1, 100),
-                        HeatmapId = i
+                        //HeatmapId = i
                     }
                     );
             }

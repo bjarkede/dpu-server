@@ -24,7 +24,7 @@ namespace dpu_server
         {
             // Static data for testing purposes
             modelBuilder.ApplyConfiguration(new ReferencepointConfiguration());
-            modelBuilder.ApplyConfiguration(new HeatmapConfiguration());
+            //modelBuilder.ApplyConfiguration(new HeatmapConfiguration());
         }
     }
 }
