@@ -19,6 +19,14 @@ namespace dpu_server
             new fileDownloadSource_t {name = "SNF1", hostname = "", numericHostName = "192.168.208.132", port = 27015},
         };
 
+        // @TODO:
+        // Below is for testing purposes only, delete whend one.
+        private static Random rng = new Random(Guid.NewGuid().GetHashCode());
+        private static string RandomRSSIString()
+        {
+            return String.Format("7.192.163.51:{0}, 199.187.194.244:{1}, 6.38.202.48:{2}", rng.Next(0, 100), rng.Next(0, 100), rng.Next(0, 100));
+        }
+
         public static int Main(String[] args)
         {
             //SEC test = new SEC();
@@ -28,20 +36,22 @@ namespace dpu_server
             List<List<int>> RSSIList = new List<List<int>>();
             IDictionary<string, List<string>> dict = new Dictionary<string, List<string>>();
 
-            for (int i = 0; i < NUM_SOURCES; i++)
+            /*for (int i = 0; i < NUM_SOURCES; i++)
             {
                 ASyncSocket s = new ASyncSocket(fileDLSources[0].numericHostName, fileDLSources[0].port);
                 sockets[i] = s;
                 s.StartClient();
-            }
+            }*/
             
             while (true)
             {
                 // Request the file containing data on each ip and their received signal strength to the sniffer.
                 for (int i = 0; i < NUM_SOURCES; i++)
                 {
-                    sockets[i].Send("RETR test.txt");
-                    sockets[i].Receive();
+                    //sockets[i].Send("RETR test.txt");
+                    //sockets[i].Receive();
+
+                    sockets[i].response = RandomRSSIString().Split(",");
 
                     // @Speed:
                     // Could probably make the code below take less time/use
@@ -73,15 +83,6 @@ namespace dpu_server
             }
             
             return 0;
-        }
-    }
-
-    static class ProgramExtension
-    {
-        private static Random rng = new Random(Guid.NewGuid().GetHashCode());
-        public static string RandomRSSIString()
-        {
-            return String.Format("7.192.163.51:{0}, 199.187.194.244:{1}, 6.38.202.48:{2}",rng.Next(0,100), rng.Next(0,100), rng.Next(0,100));
         }
     }
 }
