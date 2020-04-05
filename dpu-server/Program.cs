@@ -75,5 +75,14 @@ namespace dpu_server
             return 0;
         }
     }
+
+    static class ProgramExtension
+    {
+        private static Random rng = new Random(Guid.NewGuid().GetHashCode());
+        public static string RandomRSSIString()
+        {
+            return String.Format("7.192.163.51:{0}, 199.187.194.244:{1}, 6.38.202.48:{2}",rng.Next(0,100), rng.Next(0,100), rng.Next(0,100));
+        }
+    }
 }
 
