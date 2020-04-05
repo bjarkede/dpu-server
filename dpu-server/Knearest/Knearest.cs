@@ -1,67 +1,44 @@
-﻿using dpu_server.ServiceLayer.Services;
+﻿using dpu_server.DataLayer.Repositories;
+using dpu_server.ServiceLayer.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace dpu_server.Knearest
 {
-
-
-    //class Program
-    //{
-    //    static void Main(string[] args)
-    //    {
-    //        Console.WriteLine("-- Weighted KNN test --\n");
-
-    //        Console.WriteLine("Number of neighbours; k = 5\n");
-    //        Console.WriteLine("Target point: ( 5 , 5 )\n\n");
-    //        Knearest kn = new Knearest();
-
-    //        Point[] parray = new Point[5]
-    //            {new Point(1, 1), new Point(2, 2), new Point(3, 3), new Point(4, 4), new Point(5, 5)};
-
-    //        Point target = new Point(2, 2);
-
-    //        kn.WeightedKNN(parray, 5, target, 3);
-
-    //    }
-    //}
-
-
-    #region Knearest Algorithm
-
     public class Knearest
     {
-
+        private int numberOfClusters;
         private static ReferencepointService referencepointService;
-        List<Tuple<List<int>, int>> rssiData;
+        List<Tuple<List<int>, int, int>> rssiData = new List<Tuple<List<int>, int, int>>();
 
         // Euclidean distance function (Two dimensional)
-        private static double Distance(List<int> l1, List<int> l2)
+        private static Tuple<double, int, int> Distance(List<int> l1, Tuple<List<int>, int, int> l2)
         {
             double result = 0;
             for (int i = 0; i < l1.Count; i++)
             {
-                result += Math.Pow(l1[i] - l2[i], 2);
+                result += Math.Pow(l1[i] - l2.Item1[i], 2);
             }
-            return Math.Sqrt(result);
+            return Tuple.Create(Math.Sqrt(result), l2.Item2, l2.Item3);
         }
 
         // Weight function to generate weights for points
         // Inverse method
-        private static double[] Weights(int k, double[] distances) // Closest in terms of distance = highest weight
+        private static List<Tuple<double, int, int>> Weights(int k, List<Tuple<double, int, int>> dist) // Closest in terms of distance = highest weight
         {
             if (k < 1)
             {
                 throw new System.ArgumentException("Number of neighbours K cannot be below 1\n");
             }
 
-            double[] Weights = new double[k]; // defines one weight per neighbour
+            var Weights = new List<Tuple<double, int, int>>(); // defines one weight per neighbour
 
             for (int i = 0; i < k; i++) // Generating weights for all neighbours
             {
-                Weights[i] = 1 / distances[i]; // Formular:  w_i = 1/d_i
+                Weights.Add(Tuple.Create(1 / dist[i].Item1, dist[i].Item2, dist[i].Item3)); // Formular:  w_i = 1/d_i
             }
 
             return Weights;
@@ -72,12 +49,28 @@ namespace dpu_server.Knearest
             var Tuples = await referencepointService.GetAllAsync();
             foreach (var t in Tuples)
             {
-                rssiData.Add(Tuple.Create(new List<int> { t.RSSI1, t.RSSI2, t.RSSI3 }, t.Category));
+                rssiData.Add(Tuple.Create(new List<int> { t.RSSI1, t.RSSI2, t.RSSI3 }, t.Category, t.ReferencepointId - 1));
             }
+
+            numberOfClusters = (int)Math.Sqrt(Tuples.Count);
         }
 
+        public async Task<Models.Referencepoint> GetPointByID(int id)
+        {
+            Models.Referencepoint tuple = await referencepointService.GetByIdAsync(id);
+
+            return tuple;
+        }
+
+        public async Task<string> ShowClosestPoint(int id)
+        {
+            var tuple = await GetPointByID(id + 1);
+            string ret = $"Closest Point is: {tuple.X}, {tuple.Y}";
+            return ret;
+        }
         public Knearest()
         {
+            referencepointService = new ReferencepointService(new ReferencepointRepository(new FruitFlyContext()));
             getAllRssiData().Wait();
         }
 
@@ -86,96 +79,61 @@ namespace dpu_server.Knearest
         // rssivalues is all the rssi values in the database.
         // c is the catogory of the rssi values. Cluster ID
         // k is the number of neighbours.
-        public int WeightedKNN(int k, List<int> rssivalues, int c)
+        public int WeightedKNN(int k, List<int> rssivalues)
         {
-            if (k < 1 || rssiData.Count > k)
+            if (k < 1)
             {
                 throw new System.ArgumentException("Number of neighbours k cannot be below 1 or Array cannot be greater than the number of neighbours\n");
             }
 
             int N = rssiData.Count;
-            double[] dist = new double[N]; // Distance array
-            double[] w = new double[N]; // Weight array
-            double[] classArray = new double[c]; // Class array
+            var dist = new List<Tuple<double, int, int>>(); // Distance array
+            var w = new List<Tuple<double, int, int>>(); // Weight array
+            double[] classArray = new double[numberOfClusters]; // Class array
+            IDictionary<int, double> dict = new Dictionary<int, double>();
 
             for (int i = 0; i < N; i++)
             {
-                dist[i] = Distance(rssivalues, rssiData[i].Item1); // Distance is calculated and stored
+                dist.Add(Distance(rssivalues, rssiData[i])); // Distance is calculated and stored
             }
 
-            // Ordering the array
-            int[] orderingArray = new int[N];
+            var sorted = dist.OrderBy(d => d.Item1);
 
-            for (int i = 0; i < N; ++i)
-            {
-                orderingArray[i] = i;
-            }
-            double[] distancesCopy = new double[N]; // Creating a copy of the dist array
-            Array.Copy(dist, distancesCopy, dist.Length);
-            Array.Sort(distancesCopy, orderingArray);   // Storing dist values in the copied array
-                                                        // and sorting the copied array so the original array remains.
+            w = Weights(k, sorted.ToList());
 
-            // Printing distances out
-            for (int i = 0; i < k; ++i)
-            {
-                int p = orderingArray[i];
-                Console.WriteLine("  distance = " + distancesCopy[p].ToString("F4"));
-            }
-
-            // Weights
-            w = Weights(k, dist);
-
-            // Printing Weights
-            Console.WriteLine("\nWeights: ");
-            for (int i = 0; i < w.Length; ++i)
-            {
-                Console.Write(w[i].ToString("F4") + "  ");
-            }
-
-            Console.WriteLine("\n\nPredicted Point has the weight: ");
-
+            // Now we want to predict the class we belong to
             for (int i = 0; i < k; i++)
             {
-                int pw = orderingArray[i];
-                double _w = w[pw];
-                Console.WriteLine($" {_w}");
-            }
-
-            Console.WriteLine("\n\nClosest point starting from the top:  ");
-            for (int i = 0; i < k; ++i)
-            {
-                int po = orderingArray[i];
-                List<int> predictedrssi = rssiData[po].Item1;
-                foreach (var item in predictedrssi)
+                try
                 {
-                    Console.Write("{0},", item);
+                    dict.Add(w[i].Item2, w[i].Item1);
+                } catch (ArgumentException)
+                {
+                    dict[w[i].Item2] += w[i].Item1;
                 }
-                Console.WriteLine("");
             }
 
-            // predicting the class
-            for (int i = 0; i < k; i++)
+            var keyOfMaxValue = dict.Aggregate((x, y) => x.Value > y.Value ? x : y).Key;
+            var maxValue = dict.Values.Max();
+
+            double greatestSoFar = 0;
+            int index = 0;
+
+            for(int i = 0; i < k; i++)
             {
-                int corder = orderingArray[i];
-                int predictedclass = rssiData[corder].Item2;
-                classArray[predictedclass] += w[i];
+                if(w[i].Item1 > greatestSoFar && 
+                   w[i].Item2 == keyOfMaxValue)
+                {
+                    greatestSoFar = w[i].Item1;
+                    index = w[i].Item3;
+                }
             }
 
-            // printing the class inorder
-            for (int i = 0; i < k; i++)
-            {
-                Console.WriteLine("(" + i + ") " + classArray[i].ToString("F4"));
-            }
-
-            // should return the point and a weight (incremental value based on)
-
+            Console.WriteLine(ShowClosestPoint(index).Result);
+    
             return 0;
 
         }
-
-
+       
     }
-
-    #endregion
-
 }

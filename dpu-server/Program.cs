@@ -6,6 +6,7 @@ using System.Text;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using dpu_server.Knearest;
 
 namespace dpu_server
 {
@@ -32,16 +33,18 @@ namespace dpu_server
             //SEC test = new SEC();
             //test.Cluster();
 
+            Knearest.Knearest KNN = new Knearest.Knearest();
+
             ASyncSocket[] sockets = new ASyncSocket[NUM_SOURCES];
             List<List<int>> RSSIList = new List<List<int>>();
             IDictionary<string, List<string>> dict = new Dictionary<string, List<string>>();
 
-            /*for (int i = 0; i < NUM_SOURCES; i++)
+            for (int i = 0; i < NUM_SOURCES; i++)
             {
                 ASyncSocket s = new ASyncSocket(fileDLSources[0].numericHostName, fileDLSources[0].port);
                 sockets[i] = s;
-                s.StartClient();
-            }*/
+                //s.StartClient();
+            }
             
             while (true)
             {
@@ -79,6 +82,23 @@ namespace dpu_server
                     RSSIList.Add(p.Value.Select(int.Parse).ToList());
                 }
 
+                foreach (var item in RSSIList)
+                {
+                    foreach (var i in item)
+                    {
+                        Console.Write("{0},", i);
+                    }
+                    Console.WriteLine("");
+                }
+
+                foreach (var item in RSSIList)
+                {
+                    KNN.WeightedKNN(10, item);
+                }
+
+                RSSIList.Clear();
+                dict.Clear();
+                
                 Thread.Sleep(250);
             }
             
