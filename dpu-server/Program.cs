@@ -30,8 +30,8 @@ namespace dpu_server
 
         public static int Main(String[] args)
         {
-            //SEC test = new SEC();
-            //test.Cluster();
+            SEC test = new SEC();
+            test.Cluster();
 
             Knearest.Knearest KNN = new Knearest.Knearest();
 
