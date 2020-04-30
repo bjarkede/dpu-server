@@ -71,81 +71,86 @@ namespace dpu_server
         // This is where the clustering gets done.
         public void Cluster()
         {
-            Circle2D[] previousCentroids = new Circle2D[k];
-            Array.Copy(centroids, previousCentroids, centroids.Length);
+            bool Running = true;
 
-            // Calculate the distance of the remaining points and
-            // cluster them into the SEC. Based on the minimum-distance principle.
-            for (int i = 0; i < numberOfReferencePoints; i++)
+            while (Running)
             {
-                double oldDistance = Int32.MaxValue;
-                double newDistance = 0;
-                int clusterIndex = 0;
+                Circle2D[] previousCentroids = new Circle2D[k];
+                Array.Copy(centroids, previousCentroids, centroids.Length);
 
-                for (int j = 0; j < k; ++j)
+                // Calculate the distance of the remaining points and
+                // cluster them into the SEC. Based on the minimum-distance principle.
+                for (int i = 0; i < numberOfReferencePoints; i++)
                 {
-                    newDistance = distance(points[i].x, centroids[j].p.x, points[i].y, centroids[j].p.y);
+                    double oldDistance = Int32.MaxValue;
+                    double newDistance = 0;
+                    int clusterIndex = 0;
 
-                    // If the new distance is smaller than the others we have seen
-                    // update the distance and the cluster.
-                    if (newDistance <= oldDistance)
+                    for (int j = 0; j < k; ++j)
                     {
-                        oldDistance = newDistance;
-                        clusterIndex = j;
+                        newDistance = distance(points[i].x, centroids[j].p.x, points[i].y, centroids[j].p.y);
+
+                        // If the new distance is smaller than the others we have seen
+                        // update the distance and the cluster.
+                        if (newDistance <= oldDistance)
+                        {
+                            oldDistance = newDistance;
+                            clusterIndex = j;
+                        }
+                    }
+
+                    points[i].classification = clusterIndex; // This is the cluster where the point resides
+                    clusters[clusterIndex].Add(points[i]);
+                }
+
+                // Perform the SmallestEnclosingCircle algorithm on our current clusters
+                for (int i = 0; i < k; i++)
+                {
+                    SmallestEnclosingCircle(ref clusters[i], ref centroids[i]);
+                }
+
+                // @Note:
+                // Debugging only
+                System.Console.WriteLine("Smallest Enclosing Cirlce (SEC) Complete: ");
+                System.Console.WriteLine("");
+                for (int i = 0; i < k; i++)
+                {
+                    System.Console.WriteLine("      ({0},{1}), {2}", centroids[i].p.x, centroids[i].p.y, centroids[i].radius);
+                }
+
+                // Now we need to decide if the algorithm has to run again.
+                // @TODO:
+                // Implement some kind of threshhold definition.
+                // Right now we just see if the previous centroid is the same as the current one,
+                // we could see if the radius decrease is smaller than something.. -bjarke, 21th March 2020.
+                int numberOfEquals = 0;
+                for (int i = 0; i < k; i++)
+                {
+                    if (previousCentroids[i].p == centroids[i].p)
+                    {
+                        numberOfEquals++;
                     }
                 }
 
-                points[i].classification = clusterIndex; // This is the cluster where the point resides
-                clusters[clusterIndex].Add(points[i]);
-            }
-
-            // Perform the SmallestEnclosingCircle algorithm on our current clusters
-            for (int i = 0; i < k; i++)
-            {
-                SmallestEnclosingCircle(ref clusters[i], ref centroids[i]);
-            }
-
-            // @Note:
-            // Debugging only
-            System.Console.WriteLine("Smallest Enclosing Cirlce (SEC) Complete: ");
-            System.Console.WriteLine("");
-            for (int i = 0; i < k; i++)
-            {
-                System.Console.WriteLine("      ({0},{1}), {2}", centroids[i].p.x, centroids[i].p.y, centroids[i].radius);
-            }
-
-            // Now we need to decide if the algorithm has to run again.
-            // @TODO:
-            // Implement some kind of threshhold definition.
-            // Right now we just see if the previous centroid is the same as the current one,
-            // we could see if the radius decrease is smaller than something.. -bjarke, 21th March 2020.
-            int numberOfEquals = 0;
-            for (int i = 0; i < k; i++)
-            {
-                if (previousCentroids[i].p == centroids[i].p)
+                if (numberOfEquals == k)
                 {
-                    numberOfEquals++;
+                    // @TODO:
+                    // Entering this if-statement, means that the clustering is done. Now we have to insert
+                    // each point back into the database, along with their classification (clusterIndex).
+                    // Furthermore we will add the centroid center coordinates to the database. 
+                    UpdateCategories(clusters);
+
+                    Running = false; // SEC is done
                 }
+
+                // If the algorithm isn't done yet, clear the clusters and redo the clustering.
+                for (int i = 0; i < k; i++)
+                {
+                    clusters[i].Clear();
+                }
+
+                Array.Copy(centroids, previousCentroids, centroids.Length);
             }
-
-            if (numberOfEquals == k)
-            {
-                // @TODO:
-                // Entering this if-statement, means that the clustering is done. Now we have to insert
-                // each point back into the database, along with their classification (clusterIndex).
-                // Furthermore we will add the centroid center coordinates to the database. 
-                UpdateCategories(clusters);
-
-                return; // SEC is done
-            }
-
-            // If the algorithm isn't done yet, clear the clusters and redo the clustering.
-            for(int i = 0; i < k; i++)
-            {
-                clusters[i].Clear();
-            }
-
-            Array.Copy(centroids, previousCentroids, centroids.Length);
         }
 
         public static double distance(double x1, double x2, double y1, double y2)

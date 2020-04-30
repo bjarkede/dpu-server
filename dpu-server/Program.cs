@@ -7,12 +7,14 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using dpu_server.Knearest;
+using System.Reflection.Metadata.Ecma335;
 
 namespace dpu_server
 {
     class Program
     {
         private static int NUM_SOURCES = 3;
+        private static int MEAN = 5;
 
         // Declare all sniffers in this array of structs
         private static fileDownloadSource_t[] fileDLSources =
@@ -33,7 +35,7 @@ namespace dpu_server
             SEC test = new SEC();
             test.Cluster();
 
-            Knearest.Knearest KNN = new Knearest.Knearest();
+            //Knearest.Knearest KNN = new Knearest.Knearest();
 
             ASyncSocket[] sockets = new ASyncSocket[NUM_SOURCES];
             List<List<int>> RSSIList = new List<List<int>>();
@@ -93,7 +95,7 @@ namespace dpu_server
 
                 foreach (var item in RSSIList)
                 {
-                    KNN.WeightedKNN(10, item);
+                    //KNN.WeightedKNN(10, item);
                 }
 
                 RSSIList.Clear();
