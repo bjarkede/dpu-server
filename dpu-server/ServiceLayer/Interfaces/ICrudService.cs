@@ -17,5 +17,6 @@ namespace dpu_server.ServiceLayer.Interfaces
         Task<bool> RemoveAsync(int id);
         Task<bool> RemoveAsync(T entity);
         Task<bool> UpdateAsync(T entity);
+        Task<bool> RemoveRangeAsync(List<T> entities);
     }
 }

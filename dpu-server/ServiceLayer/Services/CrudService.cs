@@ -59,5 +59,10 @@ namespace dpu_server.ServiceLayer.Services
         {
             return await _crudRepository.UpdateAsync(entity);
         }
+
+        public async Task<bool> RemoveRangeAsync(List<T> entities)
+        {
+            return await _crudRepository.RemoveRangeAsync(entities);
+        }
     }
 }
