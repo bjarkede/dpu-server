@@ -71,5 +71,16 @@ namespace dpu_server.DataLayer.Repositories
                 return null;
             }
         }
+
+        public async Task<bool> RemoveRangeAsync()
+        {
+            foreach (var id in _fruitFlyContext.Heatmaps.Select(e => e.HeatmapID))
+            {
+                var entity =  new Heatmap { HeatmapID = id };
+                _fruitFlyContext.Heatmaps.Attach(entity);
+                _fruitFlyContext.Heatmaps.Remove(entity);
+            }
+            return await _fruitFlyContext.SaveChangesAsync() > 0;
+        }
     }
 }
