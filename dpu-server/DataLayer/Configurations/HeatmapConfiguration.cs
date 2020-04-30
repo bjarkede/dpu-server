@@ -17,7 +17,6 @@ namespace dpu_server.Configurations
                     new Heatmap
                     {
                         HeatmapID = i,
-                        Strength = rand.Next(1,10),
                         ReferencepointId = i
                     }
                     );

@@ -32,10 +32,10 @@ namespace dpu_server
 
         public static int Main(String[] args)
         {
-            SEC test = new SEC();
-            test.Cluster();
+            //SEC test = new SEC();
+            //test.Cluster();
 
-            //Knearest.Knearest KNN = new Knearest.Knearest();
+            Knearest.Knearest KNN = new Knearest.Knearest();
 
             ASyncSocket[] sockets = new ASyncSocket[NUM_SOURCES];
             List<List<int>> RSSIList = new List<List<int>>();
@@ -95,7 +95,7 @@ namespace dpu_server
 
                 foreach (var item in RSSIList)
                 {
-                    //KNN.WeightedKNN(10, item);
+                    KNN.WeightedKNN(10, item);
                 }
 
                 RSSIList.Clear();
