@@ -70,20 +70,12 @@ namespace dpu_server.Knearest
             heatmap.ReferencepointId = id;
             await heatmapService.AddAsync(heatmap);
         }
+
         public async Task<string> ShowClosestPoint(int id)
         {
             var tuple = await GetPointByID(id + 1);
             string ret = $"Closest Point is: {tuple.X}, {tuple.Y}";
             return ret;
-        }
-
-        public async Task DeleteHeatmap()
-        {
-            var Tuples = await heatmapService.GetAllAsync();
-
-            await heatmapService.RemoveRangeAsync(Tuples);
-
-            Tuples.Clear();
         }
 
         public Knearest()

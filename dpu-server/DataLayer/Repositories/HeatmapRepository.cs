@@ -80,6 +80,7 @@ namespace dpu_server.DataLayer.Repositories
                 _fruitFlyContext.Heatmaps.Attach(entity);
                 _fruitFlyContext.Heatmaps.Remove(entity);
             }
+
             return await _fruitFlyContext.SaveChangesAsync() > 0;
         }
     }
