@@ -75,6 +75,12 @@ namespace dpu_server.Knearest
             string ret = $"Closest Point is: {tuple.X}, {tuple.Y}";
             return ret;
         }
+
+        public async Task DeleteHeatmap()
+        {
+           
+        }
+
         public Knearest()
         {
             referencepointService = new ReferencepointService(new ReferencepointRepository(new FruitFlyContext()));
@@ -142,7 +148,6 @@ namespace dpu_server.Knearest
             addHeatmapData(index).Wait();
 
             return 0;
-
         }
        
     }
