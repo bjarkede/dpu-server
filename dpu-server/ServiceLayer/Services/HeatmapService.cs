@@ -19,5 +19,11 @@ namespace dpu_server.ServiceLayer.Services
         {
             return await _heatmapRepository.DoesHeatmapExist(heatmapId);
         }
+
+        public async Task<bool> RemoveRangeAsync()
+        {
+            return await _heatmapRepository.RemoveRangeAsync();
+        }
+
     }
 }

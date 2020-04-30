@@ -9,6 +9,6 @@ namespace dpu_server.DataLayer.Interfaces
     public interface IHeatmapRepository : ICrudRepository<Heatmap>
     {
         Task<bool> DoesHeatmapExist(int heatmapId);
-
+        Task<bool> RemoveRangeAsync();
     }
 }

@@ -9,5 +9,6 @@ namespace dpu_server.ServiceLayer.Interfaces
     public interface IHeatmapService : ICrudService<Heatmap>
     {
         Task<bool> DoesHeatmapExist(int heatmapId);
+        Task<bool> RemoveRangeAsync();
     }
 }
