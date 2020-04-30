@@ -1,5 +1,6 @@
 ﻿using dpu_server.DataLayer.Repositories;
 using dpu_server.ServiceLayer.Services;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,7 +79,11 @@ namespace dpu_server.Knearest
 
         public async Task DeleteHeatmap()
         {
-           
+            var Tuples = await heatmapService.GetAllAsync();
+
+            await heatmapService.RemoveRangeAsync(Tuples);
+
+            Tuples.Clear();
         }
 
         public Knearest()

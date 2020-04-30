@@ -93,6 +93,12 @@ namespace dpu_server
                     Console.WriteLine("");
                 }
 
+                // @Hack:
+                // We have to delete all the data in heatmap, because our web-application
+                // is not server sided. This makes each user delete data after a pull, so
+                // we move the deletion to this.
+                KNN.DeleteHeatmap().Wait();
+
                 foreach (var item in RSSIList)
                 {
                     KNN.WeightedKNN(10, item);
