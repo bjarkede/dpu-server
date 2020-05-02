@@ -14,12 +14,13 @@ namespace dpu_server
     class Program
     {
         private static int NUM_SOURCES = 3;
-        private static int MEAN = 5;
 
         // Declare all sniffers in this array of structs
         private static fileDownloadSource_t[] fileDLSources =
         {
-            new fileDownloadSource_t {name = "SNF1", hostname = "", numericHostName = "192.168.208.132", port = 27015},
+            new fileDownloadSource_t {name = "SNF1", hostname = "", numericHostName = "172.20.10.2", port = 27015},
+            new fileDownloadSource_t {name = "SNF2", hostname = "", numericHostName = "192.168.1.20", port = 27015}
+            //new fileDownloadSource_t {name = "SNF3", hostname = "", numericHostName = "172.20.10.2", port = 27015}
         };
 
         // @TODO:
@@ -27,7 +28,7 @@ namespace dpu_server
         private static Random rng = new Random(Guid.NewGuid().GetHashCode());
         private static string RandomRSSIString()
         {
-            return String.Format("7.192.163.51:{0}, 199.187.194.244:{1}, 6.38.202.48:{2}", rng.Next(0, 100), rng.Next(0, 100), rng.Next(0, 100));
+            return String.Format("7.192.163.51;{0}, 199.187.194.244;{1}, 6.38.202.48;{2}", rng.Next(0, 100), rng.Next(0, 100), rng.Next(0, 100));
         }
 
         public static int Main(String[] args)
@@ -53,7 +54,7 @@ namespace dpu_server
                 // Request the file containing data on each ip and their received signal strength to the sniffer.
                 for (int i = 0; i < NUM_SOURCES; i++)
                 {
-                    //sockets[i].Send("RETR test.txt");
+                    //sockets[i].Send("RETR SnifferData.txt");
                     //sockets[i].Receive();
 
                     sockets[i].response = RandomRSSIString().Split(",");
@@ -63,7 +64,7 @@ namespace dpu_server
                     // less memory - bjarke, 1st april 2020.
                     for (int j = 0; j < sockets[i].response.Length; j++)
                     {
-                        var item = sockets[i].response[j].Split(":");
+                        var item = sockets[i].response[j].Split(";");
                         try
                         {
                             // Try adding the ip as a key, into the dictionary.
@@ -92,12 +93,6 @@ namespace dpu_server
                     }
                     Console.WriteLine("");
                 }
-
-                // @Hack:
-                // We have to delete all the data in heatmap, because our web-application
-                // is not server sided. This makes each user delete data after a pull, so
-                // we move the deletion to this.
-                KNN.DeleteHeatmap().Wait();
 
                 foreach (var item in RSSIList)
                 {
