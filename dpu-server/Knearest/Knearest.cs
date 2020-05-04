@@ -51,7 +51,7 @@ namespace dpu_server.Knearest
             var Tuples = await referencepointService.GetAllAsync();
             foreach (var t in Tuples)
             {
-                rssiData.Add(Tuple.Create(new List<int> { t.RSSI1, t.RSSI2, t.RSSI3 }, t.Category, t.ReferencepointId - 1));
+                rssiData.Add(Tuple.Create(new List<int> { t.RSSI1, t.RSSI2, t.RSSI3 }, t.Category, t.ReferencepointId));
             }
 
             numberOfClusters = (int)Math.Sqrt(Tuples.Count);
@@ -73,7 +73,7 @@ namespace dpu_server.Knearest
 
         public async Task<string> ShowClosestPoint(int id)
         {
-            var tuple = await GetPointByID(id + 1);
+            var tuple = await GetPointByID(id);
             string ret = $"Closest Point is: {tuple.X}, {tuple.Y}";
             return ret;
         }
@@ -140,7 +140,9 @@ namespace dpu_server.Knearest
                 }
             }
 
-            Console.WriteLine(ShowClosestPoint(index).Result);
+            //Console.WriteLine(ShowClosestPoint(index).Result);
+
+
 
             addHeatmapData(index).Wait();
 

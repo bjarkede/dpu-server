@@ -33,8 +33,8 @@ namespace dpu_server
 
         public static int Main(String[] args)
         {
-            //SEC test = new SEC();
-            //test.Cluster();
+            SEC test = new SEC();
+            test.Cluster();
 
             Knearest.Knearest KNN = new Knearest.Knearest();
 
@@ -96,7 +96,7 @@ namespace dpu_server
 
                 foreach (var item in RSSIList)
                 {
-                    KNN.WeightedKNN(10, item);
+                    KNN.WeightedKNN(2, item);
                 }
 
                 RSSIList.Clear();

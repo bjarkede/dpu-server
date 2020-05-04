@@ -25,7 +25,7 @@ namespace dpu_server
             foreach(var t in Tuples)
             {
                 Point2D p = new Point2D(t.X, t.Y);
-                p.id = t.ReferencepointId - 1; // The tuples are not zero indexed so minus their id by 1.
+                p.id = Tuples.IndexOf(t); // The tuples are not zero indexed so minus their id by 1.
                 points.Add(p);
             }
  
