@@ -142,8 +142,6 @@ namespace dpu_server.Knearest
 
             //Console.WriteLine(ShowClosestPoint(index).Result);
 
-
-
             addHeatmapData(index).Wait();
 
             return 0;
