@@ -18,9 +18,9 @@ namespace dpu_server
         // Declare all sniffers in this array of structs
         private static fileDownloadSource_t[] fileDLSources =
         {
-            new fileDownloadSource_t {name = "SNF1", hostname = "", numericHostName = "172.20.10.2", port = 27015},
-            new fileDownloadSource_t {name = "SNF2", hostname = "", numericHostName = "192.168.1.20", port = 27015}
-            //new fileDownloadSource_t {name = "SNF3", hostname = "", numericHostName = "172.20.10.2", port = 27015}
+            new fileDownloadSource_t {name = "SNF1", hostname = "", numericHostName = "192.168.0.136", port = 27015},
+            new fileDownloadSource_t {name = "SNF2", hostname = "", numericHostName = "192.168.0.138", port = 27015},
+            new fileDownloadSource_t {name = "SNF3", hostname = "", numericHostName = "192.168.0.137", port = 27015}
         };
 
         // @TODO:
@@ -33,8 +33,8 @@ namespace dpu_server
 
         public static int Main(String[] args)
         {
-            SEC test = new SEC();
-            test.Cluster();
+            //SEC test = new SEC();
+            //test.Cluster();
 
             Knearest.Knearest KNN = new Knearest.Knearest();
 
@@ -44,9 +44,9 @@ namespace dpu_server
 
             for (int i = 0; i < NUM_SOURCES; i++)
             {
-                ASyncSocket s = new ASyncSocket(fileDLSources[0].numericHostName, fileDLSources[0].port);
+                ASyncSocket s = new ASyncSocket(fileDLSources[i].numericHostName, fileDLSources[i].port);
                 sockets[i] = s;
-                //s.StartClient();
+                s.StartClient();
             }
             
             while (true)
@@ -54,10 +54,10 @@ namespace dpu_server
                 // Request the file containing data on each ip and their received signal strength to the sniffer.
                 for (int i = 0; i < NUM_SOURCES; i++)
                 {
-                    //sockets[i].Send("RETR SnifferData.txt");
-                    //sockets[i].Receive();
+                    sockets[i].Send("RETR SnifferData.txt");
+                    sockets[i].Receive();
 
-                    sockets[i].response = RandomRSSIString().Split(",");
+                    //sockets[i].response = RandomRSSIString().Split(",");
 
                     // @Speed:
                     // Could probably make the code below take less time/use
@@ -69,7 +69,10 @@ namespace dpu_server
                         {
                             // Try adding the ip as a key, into the dictionary.
                             // If succesful, create the list containing the received signal strength values
-                            dict.Add(item[0], new List<string>() { item[1] });
+                            if (item.Length >= 2)
+                            {
+                                dict.Add(item[0], new List<string>() { item[1] });
+                            }
                         } catch (ArgumentException)
                         {
                             // If the key already exist in the dictionary, we add the new rssi value
@@ -82,7 +85,7 @@ namespace dpu_server
                 // Make the list of RSSI values.
                 foreach (KeyValuePair<string, List<string>> p in dict)
                 {
-                    RSSIList.Add(p.Value.Select(int.Parse).ToList());
+                    RSSIList.Add(p.Value.Select(x => (int)Math.Round(Double.Parse(x))).ToList());
                 }
 
                 foreach (var item in RSSIList)
@@ -96,7 +99,7 @@ namespace dpu_server
 
                 foreach (var item in RSSIList)
                 {
-                    KNN.WeightedKNN(2, item);
+                    KNN.WeightedKNN(10, item);
                 }
 
                 RSSIList.Clear();
