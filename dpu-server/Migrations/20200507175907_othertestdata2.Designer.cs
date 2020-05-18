@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using dpu_server;
 
 namespace dpu_server.Migrations
 {
     [DbContext(typeof(FruitFlyContext))]
-    partial class FruitFlyContextModelSnapshot : ModelSnapshot
+    [Migration("20200507175907_othertestdata2")]
+    partial class othertestdata2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -76,9 +78,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 11,
-                            Category = 9,
+                            Category = 4,
                             RSSI1 = 45,
-                            RSSI2 = 80,
+                            RSSI2 = 75,
                             RSSI3 = 45,
                             X = 1,
                             Y = 1
@@ -86,9 +88,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 12,
-                            Category = 6,
+                            Category = 9,
                             RSSI1 = 50,
-                            RSSI2 = 75,
+                            RSSI2 = 70,
                             RSSI3 = 50,
                             X = 1,
                             Y = 2
@@ -96,9 +98,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 13,
-                            Category = 8,
+                            Category = 3,
                             RSSI1 = 55,
-                            RSSI2 = 70,
+                            RSSI2 = 65,
                             RSSI3 = 55,
                             X = 1,
                             Y = 3
@@ -106,9 +108,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 14,
-                            Category = 4,
+                            Category = 1,
                             RSSI1 = 60,
-                            RSSI2 = 65,
+                            RSSI2 = 60,
                             RSSI3 = 60,
                             X = 1,
                             Y = 4
@@ -118,7 +120,7 @@ namespace dpu_server.Migrations
                             ReferencepointId = 15,
                             Category = 3,
                             RSSI1 = 65,
-                            RSSI2 = 60,
+                            RSSI2 = 55,
                             RSSI3 = 65,
                             X = 1,
                             Y = 5
@@ -128,7 +130,7 @@ namespace dpu_server.Migrations
                             ReferencepointId = 16,
                             Category = 5,
                             RSSI1 = 70,
-                            RSSI2 = 55,
+                            RSSI2 = 50,
                             RSSI3 = 70,
                             X = 1,
                             Y = 6
@@ -136,9 +138,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 17,
-                            Category = 7,
+                            Category = 6,
                             RSSI1 = 75,
-                            RSSI2 = 50,
+                            RSSI2 = 45,
                             RSSI3 = 75,
                             X = 1,
                             Y = 7
@@ -146,9 +148,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 18,
-                            Category = 1,
+                            Category = 4,
                             RSSI1 = 80,
-                            RSSI2 = 45,
+                            RSSI2 = 40,
                             RSSI3 = 80,
                             X = 1,
                             Y = 8
@@ -156,9 +158,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 19,
-                            Category = 4,
+                            Category = 2,
                             RSSI1 = 85,
-                            RSSI2 = 40,
+                            RSSI2 = 35,
                             RSSI3 = 85,
                             X = 1,
                             Y = 9
@@ -166,9 +168,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 20,
-                            Category = 7,
+                            Category = 5,
                             RSSI1 = 90,
-                            RSSI2 = 35,
+                            RSSI2 = 30,
                             RSSI3 = 90,
                             X = 1,
                             Y = 10
@@ -176,9 +178,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 21,
-                            Category = 8,
+                            Category = 4,
                             RSSI1 = 50,
-                            RSSI2 = 75,
+                            RSSI2 = 70,
                             RSSI3 = 40,
                             X = 2,
                             Y = 1
@@ -186,9 +188,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 22,
-                            Category = 6,
+                            Category = 5,
                             RSSI1 = 55,
-                            RSSI2 = 70,
+                            RSSI2 = 65,
                             RSSI3 = 45,
                             X = 2,
                             Y = 2
@@ -196,9 +198,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 23,
-                            Category = 2,
+                            Category = 7,
                             RSSI1 = 60,
-                            RSSI2 = 65,
+                            RSSI2 = 60,
                             RSSI3 = 50,
                             X = 2,
                             Y = 3
@@ -206,9 +208,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 24,
-                            Category = 1,
+                            Category = 9,
                             RSSI1 = 65,
-                            RSSI2 = 60,
+                            RSSI2 = 55,
                             RSSI3 = 55,
                             X = 2,
                             Y = 4
@@ -216,9 +218,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 25,
-                            Category = 6,
+                            Category = 5,
                             RSSI1 = 70,
-                            RSSI2 = 55,
+                            RSSI2 = 50,
                             RSSI3 = 60,
                             X = 2,
                             Y = 5
@@ -226,9 +228,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 26,
-                            Category = 1,
+                            Category = 4,
                             RSSI1 = 75,
-                            RSSI2 = 50,
+                            RSSI2 = 45,
                             RSSI3 = 65,
                             X = 2,
                             Y = 6
@@ -236,9 +238,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 27,
-                            Category = 6,
+                            Category = 3,
                             RSSI1 = 80,
-                            RSSI2 = 45,
+                            RSSI2 = 40,
                             RSSI3 = 70,
                             X = 2,
                             Y = 7
@@ -246,9 +248,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 28,
-                            Category = 4,
+                            Category = 3,
                             RSSI1 = 85,
-                            RSSI2 = 40,
+                            RSSI2 = 35,
                             RSSI3 = 75,
                             X = 2,
                             Y = 8
@@ -256,9 +258,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 29,
-                            Category = 8,
+                            Category = 7,
                             RSSI1 = 90,
-                            RSSI2 = 35,
+                            RSSI2 = 30,
                             RSSI3 = 80,
                             X = 2,
                             Y = 9
@@ -266,9 +268,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 30,
-                            Category = 7,
+                            Category = 9,
                             RSSI1 = 95,
-                            RSSI2 = 30,
+                            RSSI2 = 25,
                             RSSI3 = 85,
                             X = 2,
                             Y = 10
@@ -276,9 +278,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 31,
-                            Category = 6,
+                            Category = 7,
                             RSSI1 = 55,
-                            RSSI2 = 70,
+                            RSSI2 = 65,
                             RSSI3 = 35,
                             X = 3,
                             Y = 1
@@ -286,9 +288,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 32,
-                            Category = 8,
+                            Category = 4,
                             RSSI1 = 60,
-                            RSSI2 = 65,
+                            RSSI2 = 60,
                             RSSI3 = 40,
                             X = 3,
                             Y = 2
@@ -296,9 +298,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 33,
-                            Category = 7,
+                            Category = 4,
                             RSSI1 = 65,
-                            RSSI2 = 60,
+                            RSSI2 = 55,
                             RSSI3 = 45,
                             X = 3,
                             Y = 3
@@ -306,9 +308,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 34,
-                            Category = 6,
+                            Category = 8,
                             RSSI1 = 70,
-                            RSSI2 = 55,
+                            RSSI2 = 50,
                             RSSI3 = 50,
                             X = 3,
                             Y = 4
@@ -318,7 +320,7 @@ namespace dpu_server.Migrations
                             ReferencepointId = 35,
                             Category = 5,
                             RSSI1 = 75,
-                            RSSI2 = 50,
+                            RSSI2 = 45,
                             RSSI3 = 55,
                             X = 3,
                             Y = 5
@@ -328,7 +330,7 @@ namespace dpu_server.Migrations
                             ReferencepointId = 36,
                             Category = 7,
                             RSSI1 = 80,
-                            RSSI2 = 45,
+                            RSSI2 = 40,
                             RSSI3 = 60,
                             X = 3,
                             Y = 6
@@ -336,9 +338,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 37,
-                            Category = 5,
+                            Category = 4,
                             RSSI1 = 85,
-                            RSSI2 = 40,
+                            RSSI2 = 35,
                             RSSI3 = 65,
                             X = 3,
                             Y = 7
@@ -346,9 +348,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 38,
-                            Category = 7,
+                            Category = 5,
                             RSSI1 = 90,
-                            RSSI2 = 35,
+                            RSSI2 = 30,
                             RSSI3 = 70,
                             X = 3,
                             Y = 8
@@ -356,9 +358,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 39,
-                            Category = 3,
+                            Category = 6,
                             RSSI1 = 95,
-                            RSSI2 = 30,
+                            RSSI2 = 25,
                             RSSI3 = 75,
                             X = 3,
                             Y = 9
@@ -366,9 +368,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 40,
-                            Category = 6,
+                            Category = 1,
                             RSSI1 = 100,
-                            RSSI2 = 25,
+                            RSSI2 = 20,
                             RSSI3 = 80,
                             X = 3,
                             Y = 10
@@ -376,9 +378,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 41,
-                            Category = 4,
+                            Category = 8,
                             RSSI1 = 60,
-                            RSSI2 = 65,
+                            RSSI2 = 60,
                             RSSI3 = 30,
                             X = 4,
                             Y = 1
@@ -386,9 +388,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 42,
-                            Category = 6,
+                            Category = 7,
                             RSSI1 = 65,
-                            RSSI2 = 60,
+                            RSSI2 = 55,
                             RSSI3 = 35,
                             X = 4,
                             Y = 2
@@ -396,9 +398,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 43,
-                            Category = 7,
+                            Category = 5,
                             RSSI1 = 70,
-                            RSSI2 = 55,
+                            RSSI2 = 50,
                             RSSI3 = 40,
                             X = 4,
                             Y = 3
@@ -406,9 +408,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 44,
-                            Category = 5,
+                            Category = 7,
                             RSSI1 = 75,
-                            RSSI2 = 50,
+                            RSSI2 = 45,
                             RSSI3 = 45,
                             X = 4,
                             Y = 4
@@ -418,7 +420,7 @@ namespace dpu_server.Migrations
                             ReferencepointId = 45,
                             Category = 2,
                             RSSI1 = 80,
-                            RSSI2 = 45,
+                            RSSI2 = 40,
                             RSSI3 = 50,
                             X = 4,
                             Y = 5
@@ -426,9 +428,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 46,
-                            Category = 5,
+                            Category = 4,
                             RSSI1 = 85,
-                            RSSI2 = 40,
+                            RSSI2 = 35,
                             RSSI3 = 55,
                             X = 4,
                             Y = 6
@@ -438,7 +440,7 @@ namespace dpu_server.Migrations
                             ReferencepointId = 47,
                             Category = 5,
                             RSSI1 = 90,
-                            RSSI2 = 35,
+                            RSSI2 = 30,
                             RSSI3 = 60,
                             X = 4,
                             Y = 7
@@ -446,9 +448,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 48,
-                            Category = 4,
+                            Category = 8,
                             RSSI1 = 95,
-                            RSSI2 = 30,
+                            RSSI2 = 25,
                             RSSI3 = 65,
                             X = 4,
                             Y = 8
@@ -456,9 +458,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 49,
-                            Category = 4,
+                            Category = 2,
                             RSSI1 = 100,
-                            RSSI2 = 25,
+                            RSSI2 = 20,
                             RSSI3 = 70,
                             X = 4,
                             Y = 9
@@ -466,9 +468,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 50,
-                            Category = 5,
+                            Category = 2,
                             RSSI1 = 105,
-                            RSSI2 = 20,
+                            RSSI2 = 15,
                             RSSI3 = 75,
                             X = 4,
                             Y = 10
@@ -476,9 +478,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 51,
-                            Category = 9,
+                            Category = 1,
                             RSSI1 = 65,
-                            RSSI2 = 60,
+                            RSSI2 = 55,
                             RSSI3 = 25,
                             X = 5,
                             Y = 1
@@ -486,9 +488,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 52,
-                            Category = 7,
+                            Category = 3,
                             RSSI1 = 70,
-                            RSSI2 = 55,
+                            RSSI2 = 50,
                             RSSI3 = 30,
                             X = 5,
                             Y = 2
@@ -496,9 +498,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 53,
-                            Category = 6,
+                            Category = 7,
                             RSSI1 = 75,
-                            RSSI2 = 50,
+                            RSSI2 = 45,
                             RSSI3 = 35,
                             X = 5,
                             Y = 3
@@ -506,9 +508,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 54,
-                            Category = 1,
+                            Category = 5,
                             RSSI1 = 80,
-                            RSSI2 = 45,
+                            RSSI2 = 40,
                             RSSI3 = 40,
                             X = 5,
                             Y = 4
@@ -516,9 +518,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 55,
-                            Category = 8,
+                            Category = 4,
                             RSSI1 = 85,
-                            RSSI2 = 40,
+                            RSSI2 = 35,
                             RSSI3 = 45,
                             X = 5,
                             Y = 5
@@ -526,9 +528,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 56,
-                            Category = 7,
+                            Category = 4,
                             RSSI1 = 90,
-                            RSSI2 = 35,
+                            RSSI2 = 30,
                             RSSI3 = 50,
                             X = 5,
                             Y = 6
@@ -536,9 +538,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 57,
-                            Category = 9,
+                            Category = 6,
                             RSSI1 = 95,
-                            RSSI2 = 30,
+                            RSSI2 = 25,
                             RSSI3 = 55,
                             X = 5,
                             Y = 7
@@ -546,9 +548,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 58,
-                            Category = 7,
+                            Category = 3,
                             RSSI1 = 100,
-                            RSSI2 = 25,
+                            RSSI2 = 20,
                             RSSI3 = 60,
                             X = 5,
                             Y = 8
@@ -556,9 +558,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 59,
-                            Category = 1,
+                            Category = 9,
                             RSSI1 = 105,
-                            RSSI2 = 20,
+                            RSSI2 = 15,
                             RSSI3 = 65,
                             X = 5,
                             Y = 9
@@ -566,9 +568,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 60,
-                            Category = 5,
+                            Category = 8,
                             RSSI1 = 110,
-                            RSSI2 = 15,
+                            RSSI2 = 10,
                             RSSI3 = 70,
                             X = 5,
                             Y = 10
@@ -576,9 +578,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 61,
-                            Category = 9,
+                            Category = 2,
                             RSSI1 = 70,
-                            RSSI2 = 55,
+                            RSSI2 = 50,
                             RSSI3 = 20,
                             X = 6,
                             Y = 1
@@ -588,7 +590,7 @@ namespace dpu_server.Migrations
                             ReferencepointId = 62,
                             Category = 7,
                             RSSI1 = 75,
-                            RSSI2 = 50,
+                            RSSI2 = 45,
                             RSSI3 = 25,
                             X = 6,
                             Y = 2
@@ -596,9 +598,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 63,
-                            Category = 5,
+                            Category = 3,
                             RSSI1 = 80,
-                            RSSI2 = 45,
+                            RSSI2 = 40,
                             RSSI3 = 30,
                             X = 6,
                             Y = 3
@@ -606,9 +608,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 64,
-                            Category = 1,
+                            Category = 9,
                             RSSI1 = 85,
-                            RSSI2 = 40,
+                            RSSI2 = 35,
                             RSSI3 = 35,
                             X = 6,
                             Y = 4
@@ -616,9 +618,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 65,
-                            Category = 4,
+                            Category = 2,
                             RSSI1 = 90,
-                            RSSI2 = 35,
+                            RSSI2 = 30,
                             RSSI3 = 40,
                             X = 6,
                             Y = 5
@@ -626,9 +628,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 66,
-                            Category = 1,
+                            Category = 9,
                             RSSI1 = 95,
-                            RSSI2 = 30,
+                            RSSI2 = 25,
                             RSSI3 = 45,
                             X = 6,
                             Y = 6
@@ -636,9 +638,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 67,
-                            Category = 9,
+                            Category = 5,
                             RSSI1 = 100,
-                            RSSI2 = 25,
+                            RSSI2 = 20,
                             RSSI3 = 50,
                             X = 6,
                             Y = 7
@@ -646,9 +648,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 68,
-                            Category = 2,
+                            Category = 4,
                             RSSI1 = 105,
-                            RSSI2 = 20,
+                            RSSI2 = 15,
                             RSSI3 = 55,
                             X = 6,
                             Y = 8
@@ -656,9 +658,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 69,
-                            Category = 9,
+                            Category = 6,
                             RSSI1 = 110,
-                            RSSI2 = 15,
+                            RSSI2 = 10,
                             RSSI3 = 60,
                             X = 6,
                             Y = 9
@@ -666,9 +668,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 70,
-                            Category = 6,
+                            Category = 5,
                             RSSI1 = 115,
-                            RSSI2 = 10,
+                            RSSI2 = 5,
                             RSSI3 = 65,
                             X = 6,
                             Y = 10
@@ -676,9 +678,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 71,
-                            Category = 1,
+                            Category = 2,
                             RSSI1 = 75,
-                            RSSI2 = 50,
+                            RSSI2 = 45,
                             RSSI3 = 15,
                             X = 7,
                             Y = 1
@@ -686,9 +688,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 72,
-                            Category = 9,
+                            Category = 2,
                             RSSI1 = 80,
-                            RSSI2 = 45,
+                            RSSI2 = 40,
                             RSSI3 = 20,
                             X = 7,
                             Y = 2
@@ -696,9 +698,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 73,
-                            Category = 8,
+                            Category = 7,
                             RSSI1 = 85,
-                            RSSI2 = 40,
+                            RSSI2 = 35,
                             RSSI3 = 25,
                             X = 7,
                             Y = 3
@@ -706,9 +708,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 74,
-                            Category = 8,
+                            Category = 1,
                             RSSI1 = 90,
-                            RSSI2 = 35,
+                            RSSI2 = 30,
                             RSSI3 = 30,
                             X = 7,
                             Y = 4
@@ -716,9 +718,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 75,
-                            Category = 3,
+                            Category = 7,
                             RSSI1 = 95,
-                            RSSI2 = 30,
+                            RSSI2 = 25,
                             RSSI3 = 35,
                             X = 7,
                             Y = 5
@@ -726,9 +728,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 76,
-                            Category = 3,
+                            Category = 6,
                             RSSI1 = 100,
-                            RSSI2 = 25,
+                            RSSI2 = 20,
                             RSSI3 = 40,
                             X = 7,
                             Y = 6
@@ -736,9 +738,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 77,
-                            Category = 8,
+                            Category = 1,
                             RSSI1 = 105,
-                            RSSI2 = 20,
+                            RSSI2 = 15,
                             RSSI3 = 45,
                             X = 7,
                             Y = 7
@@ -746,9 +748,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 78,
-                            Category = 7,
+                            Category = 9,
                             RSSI1 = 110,
-                            RSSI2 = 15,
+                            RSSI2 = 10,
                             RSSI3 = 50,
                             X = 7,
                             Y = 8
@@ -758,7 +760,7 @@ namespace dpu_server.Migrations
                             ReferencepointId = 79,
                             Category = 8,
                             RSSI1 = 115,
-                            RSSI2 = 10,
+                            RSSI2 = 5,
                             RSSI3 = 55,
                             X = 7,
                             Y = 9
@@ -768,7 +770,7 @@ namespace dpu_server.Migrations
                             ReferencepointId = 80,
                             Category = 1,
                             RSSI1 = 120,
-                            RSSI2 = 5,
+                            RSSI2 = 0,
                             RSSI3 = 60,
                             X = 7,
                             Y = 10
@@ -776,9 +778,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 81,
-                            Category = 5,
+                            Category = 8,
                             RSSI1 = 80,
-                            RSSI2 = 45,
+                            RSSI2 = 40,
                             RSSI3 = 10,
                             X = 8,
                             Y = 1
@@ -786,9 +788,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 82,
-                            Category = 2,
+                            Category = 5,
                             RSSI1 = 85,
-                            RSSI2 = 40,
+                            RSSI2 = 35,
                             RSSI3 = 15,
                             X = 8,
                             Y = 2
@@ -798,7 +800,7 @@ namespace dpu_server.Migrations
                             ReferencepointId = 83,
                             Category = 1,
                             RSSI1 = 90,
-                            RSSI2 = 35,
+                            RSSI2 = 30,
                             RSSI3 = 20,
                             X = 8,
                             Y = 3
@@ -806,9 +808,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 84,
-                            Category = 3,
+                            Category = 6,
                             RSSI1 = 95,
-                            RSSI2 = 30,
+                            RSSI2 = 25,
                             RSSI3 = 25,
                             X = 8,
                             Y = 4
@@ -818,7 +820,7 @@ namespace dpu_server.Migrations
                             ReferencepointId = 85,
                             Category = 8,
                             RSSI1 = 100,
-                            RSSI2 = 25,
+                            RSSI2 = 20,
                             RSSI3 = 30,
                             X = 8,
                             Y = 5
@@ -826,9 +828,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 86,
-                            Category = 8,
+                            Category = 5,
                             RSSI1 = 105,
-                            RSSI2 = 20,
+                            RSSI2 = 15,
                             RSSI3 = 35,
                             X = 8,
                             Y = 6
@@ -836,9 +838,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 87,
-                            Category = 3,
+                            Category = 7,
                             RSSI1 = 110,
-                            RSSI2 = 15,
+                            RSSI2 = 10,
                             RSSI3 = 40,
                             X = 8,
                             Y = 7
@@ -846,9 +848,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 88,
-                            Category = 6,
+                            Category = 9,
                             RSSI1 = 115,
-                            RSSI2 = 10,
+                            RSSI2 = 5,
                             RSSI3 = 45,
                             X = 8,
                             Y = 8
@@ -856,9 +858,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 89,
-                            Category = 8,
+                            Category = 5,
                             RSSI1 = 120,
-                            RSSI2 = 5,
+                            RSSI2 = 0,
                             RSSI3 = 50,
                             X = 8,
                             Y = 9
@@ -866,9 +868,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 90,
-                            Category = 8,
+                            Category = 1,
                             RSSI1 = 125,
-                            RSSI2 = 0,
+                            RSSI2 = -5,
                             RSSI3 = 55,
                             X = 8,
                             Y = 10
@@ -876,9 +878,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 91,
-                            Category = 8,
+                            Category = 1,
                             RSSI1 = 85,
-                            RSSI2 = 40,
+                            RSSI2 = 35,
                             RSSI3 = 5,
                             X = 9,
                             Y = 1
@@ -886,9 +888,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 92,
-                            Category = 8,
+                            Category = 2,
                             RSSI1 = 90,
-                            RSSI2 = 35,
+                            RSSI2 = 30,
                             RSSI3 = 10,
                             X = 9,
                             Y = 2
@@ -896,9 +898,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 93,
-                            Category = 7,
+                            Category = 6,
                             RSSI1 = 95,
-                            RSSI2 = 30,
+                            RSSI2 = 25,
                             RSSI3 = 15,
                             X = 9,
                             Y = 3
@@ -908,7 +910,7 @@ namespace dpu_server.Migrations
                             ReferencepointId = 94,
                             Category = 7,
                             RSSI1 = 100,
-                            RSSI2 = 25,
+                            RSSI2 = 20,
                             RSSI3 = 20,
                             X = 9,
                             Y = 4
@@ -916,9 +918,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 95,
-                            Category = 7,
+                            Category = 8,
                             RSSI1 = 105,
-                            RSSI2 = 20,
+                            RSSI2 = 15,
                             RSSI3 = 25,
                             X = 9,
                             Y = 5
@@ -926,9 +928,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 96,
-                            Category = 7,
+                            Category = 1,
                             RSSI1 = 110,
-                            RSSI2 = 15,
+                            RSSI2 = 10,
                             RSSI3 = 30,
                             X = 9,
                             Y = 6
@@ -936,9 +938,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 97,
-                            Category = 1,
+                            Category = 5,
                             RSSI1 = 115,
-                            RSSI2 = 10,
+                            RSSI2 = 5,
                             RSSI3 = 35,
                             X = 9,
                             Y = 7
@@ -948,7 +950,7 @@ namespace dpu_server.Migrations
                             ReferencepointId = 98,
                             Category = 6,
                             RSSI1 = 120,
-                            RSSI2 = 5,
+                            RSSI2 = 0,
                             RSSI3 = 40,
                             X = 9,
                             Y = 8
@@ -956,9 +958,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 99,
-                            Category = 1,
+                            Category = 5,
                             RSSI1 = 125,
-                            RSSI2 = 0,
+                            RSSI2 = -5,
                             RSSI3 = 45,
                             X = 9,
                             Y = 9
@@ -966,9 +968,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 100,
-                            Category = 2,
+                            Category = 3,
                             RSSI1 = 130,
-                            RSSI2 = -5,
+                            RSSI2 = -10,
                             RSSI3 = 50,
                             X = 9,
                             Y = 10
@@ -976,9 +978,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 101,
-                            Category = 6,
+                            Category = 9,
                             RSSI1 = 90,
-                            RSSI2 = 35,
+                            RSSI2 = 30,
                             RSSI3 = 0,
                             X = 10,
                             Y = 1
@@ -986,9 +988,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 102,
-                            Category = 4,
+                            Category = 1,
                             RSSI1 = 95,
-                            RSSI2 = 30,
+                            RSSI2 = 25,
                             RSSI3 = 5,
                             X = 10,
                             Y = 2
@@ -996,9 +998,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 103,
-                            Category = 4,
+                            Category = 3,
                             RSSI1 = 100,
-                            RSSI2 = 25,
+                            RSSI2 = 20,
                             RSSI3 = 10,
                             X = 10,
                             Y = 3
@@ -1006,9 +1008,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 104,
-                            Category = 8,
+                            Category = 7,
                             RSSI1 = 105,
-                            RSSI2 = 20,
+                            RSSI2 = 15,
                             RSSI3 = 15,
                             X = 10,
                             Y = 4
@@ -1016,9 +1018,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 105,
-                            Category = 5,
+                            Category = 1,
                             RSSI1 = 110,
-                            RSSI2 = 15,
+                            RSSI2 = 10,
                             RSSI3 = 20,
                             X = 10,
                             Y = 5
@@ -1028,7 +1030,7 @@ namespace dpu_server.Migrations
                             ReferencepointId = 106,
                             Category = 9,
                             RSSI1 = 115,
-                            RSSI2 = 10,
+                            RSSI2 = 5,
                             RSSI3 = 25,
                             X = 10,
                             Y = 6
@@ -1036,9 +1038,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 107,
-                            Category = 9,
+                            Category = 5,
                             RSSI1 = 120,
-                            RSSI2 = 5,
+                            RSSI2 = 0,
                             RSSI3 = 30,
                             X = 10,
                             Y = 7
@@ -1046,9 +1048,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 108,
-                            Category = 7,
+                            Category = 6,
                             RSSI1 = 125,
-                            RSSI2 = 0,
+                            RSSI2 = -5,
                             RSSI3 = 35,
                             X = 10,
                             Y = 8
@@ -1056,9 +1058,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 109,
-                            Category = 7,
+                            Category = 8,
                             RSSI1 = 130,
-                            RSSI2 = -5,
+                            RSSI2 = -10,
                             RSSI3 = 40,
                             X = 10,
                             Y = 9
@@ -1066,9 +1068,9 @@ namespace dpu_server.Migrations
                         new
                         {
                             ReferencepointId = 110,
-                            Category = 5,
+                            Category = 7,
                             RSSI1 = 135,
-                            RSSI2 = -10,
+                            RSSI2 = -15,
                             RSSI3 = 45,
                             X = 10,
                             Y = 10

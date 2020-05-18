@@ -16,22 +16,10 @@ namespace dpu_server.Configurations
         {
             var rand = new Random();
             //250 referencepoints for testing
-            for (int i = 1; i < 250; i++)
-            {
-                entity.HasData(
-                    new Referencepoint
-                    {
-                        ReferencepointId = i,
-                        Category = rand.Next(1, 10),
-                        RSSI1 = rand.Next(1, 100),
-                        RSSI2 = rand.Next(1, 100),
-                        RSSI3 = rand.Next(1, 100),
-                        X = rand.Next(1, 100),
-                        Y = rand.Next(1, 100),
-                        //HeatmapId = i
-                    }
-                    );
-            }
+            
+
+
+
         }
     }
 }
