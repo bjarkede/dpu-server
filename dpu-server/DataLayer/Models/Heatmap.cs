@@ -8,8 +8,6 @@ namespace dpu_server.Models
     public class Heatmap
     {
         public int HeatmapID { get; set; }
-
-        [ForeignKey("Referencepoint")]
         public int ReferencepointId { get; set; }
         public Referencepoint Referencepoint { get; set; }
     }
