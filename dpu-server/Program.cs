@@ -29,12 +29,13 @@ namespace dpu_server
         private static string RandomRSSIString()
         {
             return String.Format("7.192.163.51;{0}, 199.187.194.244;{1}, 6.38.202.48;{2}", rng.Next(0, 100), rng.Next(0, 100), rng.Next(0, 100));
+            //return String.Format("7c:7a:91:3b:1c:13;31.0, 7c:7a:91:3b:1c:12;52.0, 7c:7a:91:3b:1c:13;21.0");
         }
 
         public static int Main(String[] args)
         {
-            SEC test = new SEC();
-            test.Cluster();
+            //SEC test = new SEC();
+            //test.Cluster();
 
             Knearest.Knearest KNN = new Knearest.Knearest();
 
@@ -46,18 +47,18 @@ namespace dpu_server
             {
                 ASyncSocket s = new ASyncSocket(fileDLSources[i].numericHostName, fileDLSources[i].port);
                 sockets[i] = s;
-                s.StartClient();
+               // s.StartClient();
             }
-            
+
             while (true)
             {
                 // Request the file containing data on each ip and their received signal strength to the sniffer.
                 for (int i = 0; i < NUM_SOURCES; i++)
                 {
-                    sockets[i].Send("RETR SnifferData.txt");
-                    sockets[i].Receive();
+                    //sockets[i].Send("RETR SnifferData.txt");
+                    //sockets[i].Receive();
 
-                    //sockets[i].response = RandomRSSIString().Split(",");
+                    sockets[i].response = RandomRSSIString().Split(",");
 
                     // @Speed:
                     // Could probably make the code below take less time/use
@@ -81,7 +82,7 @@ namespace dpu_server
                         }
                     }
                 }
-                
+
                 // Make the list of RSSI values.
                 foreach (KeyValuePair<string, List<string>> p in dict)
                 {
@@ -99,7 +100,7 @@ namespace dpu_server
 
                 foreach (var item in RSSIList)
                 {
-                    KNN.WeightedKNN(9, item);
+                    KNN.WeightedKNN(3, item);
                 }
 
                 RSSIList.Clear();

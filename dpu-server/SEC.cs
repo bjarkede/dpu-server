@@ -5,6 +5,7 @@ using dpu_server.ServiceLayer.Services;
 using dpu_server.Knearest;
 using dpu_server.DataLayer.Repositories;
 using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace dpu_server
 {
@@ -72,10 +73,10 @@ namespace dpu_server
         public void Cluster()
         {
             bool Running = true;
+            Circle2D[] previousCentroids = new Circle2D[k];
 
             while (Running)
             {
-                Circle2D[] previousCentroids = new Circle2D[k];
                 Array.Copy(centroids, previousCentroids, centroids.Length);
 
                 // Calculate the distance of the remaining points and
@@ -128,7 +129,7 @@ namespace dpu_server
                 {
                     if (previousCentroids[i].p == centroids[i].p)
                     {
-                        numberOfEquals++;
+                            numberOfEquals++;
                     }
                 }
 

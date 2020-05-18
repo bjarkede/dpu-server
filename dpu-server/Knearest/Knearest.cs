@@ -140,7 +140,7 @@ namespace dpu_server.Knearest
                 }
             }
 
-            //Console.WriteLine(ShowClosestPoint(index).Result);
+            Console.WriteLine(ShowClosestPoint(index).Result);
 
             addHeatmapData(index).Wait();
 
